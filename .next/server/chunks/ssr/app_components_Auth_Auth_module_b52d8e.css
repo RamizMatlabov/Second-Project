@@ -1,0 +1,121 @@
+/* [project]/app/components/Auth/Auth.module.css [app-client] (css) */
+.Auth-module__HYP_pa__container {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 0 20px #0000001a;
+  background-color: #fff;
+}
+
+.Auth-module__HYP_pa__container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}
+
+.Auth-module__HYP_pa__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.Auth-module__HYP_pa__inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.Auth-module__HYP_pa__inputGroup label {
+  font-weight: 500;
+  color: #333;
+  font-size: .95rem;
+}
+
+.Auth-module__HYP_pa__inputGroup input {
+  padding: .75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.Auth-module__HYP_pa__inputGroup input:focus {
+  outline: none;
+  border-color: #0070f3;
+  box-shadow: 0 0 0 2px #0070f31a;
+}
+
+.Auth-module__HYP_pa__inputGroup input::placeholder {
+  color: #999;
+}
+
+.Auth-module__HYP_pa__button {
+  background-color: #0070f3;
+  color: #fff;
+  padding: .875rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color .2s, transform .1s;
+  margin-top: .5rem;
+}
+
+.Auth-module__HYP_pa__button:hover:not(:disabled) {
+  background-color: #0051b3;
+}
+
+.Auth-module__HYP_pa__button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.Auth-module__HYP_pa__button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.Auth-module__HYP_pa__toggleButton {
+  background: none;
+  border: none;
+  color: #0070f3;
+  font-size: .9rem;
+  cursor: pointer;
+  padding: .5rem;
+  margin-top: .5rem;
+  transition: color .2s;
+}
+
+.Auth-module__HYP_pa__toggleButton:hover:not(:disabled) {
+  color: #0051b3;
+  text-decoration: underline;
+}
+
+.Auth-module__HYP_pa__toggleButton:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.Auth-module__HYP_pa__error {
+  color: #dc2626;
+  font-size: .875rem;
+  margin-top: .5rem;
+  padding: .5rem;
+  background-color: #fee2e2;
+  border-radius: 4px;
+  border: 1px solid #fecaca;
+}
+
+.Auth-module__HYP_pa__success {
+  color: #059669;
+  font-size: .875rem;
+  margin-top: .5rem;
+  padding: .5rem;
+  background-color: #d1fae5;
+  border-radius: 4px;
+  border: 1px solid #a7f3d0;
+}
+
+/*# sourceMappingURL=app_components_Auth_Auth_module_b52d8e.css.map*/
