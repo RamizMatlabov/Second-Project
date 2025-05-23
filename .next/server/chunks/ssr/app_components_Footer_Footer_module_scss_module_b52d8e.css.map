@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack://[project]/app/components/Footer/Footer.module.scss.module.css"],"sourcesContent":[".footer{background-color:#1a1a1a;color:#fff;padding:3rem 0 1rem}.container{max-width:1200px;margin:0 auto;padding:0 1rem}.content{display:grid;grid-template-columns:repeat(3, 1fr);gap:2rem;margin-bottom:2rem}.section h3{font-size:1.5rem;margin-bottom:1rem}.section h4{font-size:1.2rem;margin-bottom:1rem}.section p{color:#999;line-height:1.6}.bottom{border-top:1px solid #333;padding-top:1rem;text-align:center}.bottom p{color:#999}"],"names":[],"mappings":"AAAA;;;;;;AAAgE;;;;;;AAAyD;;;;;;;AAAuF;;;;;AAAgD;;;;;AAAgD;;;;;AAAsC;;;;;;AAAqE"}},
+    {"offset": {"line": 44, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}

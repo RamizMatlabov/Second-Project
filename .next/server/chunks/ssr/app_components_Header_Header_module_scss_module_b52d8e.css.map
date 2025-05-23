@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack://[project]/app/components/Header/Header.module.scss.module.css"],"sourcesContent":[".header{background-color:#fff;box-shadow:0 2px 4px rgba(0,0,0,.1);padding:1rem 0}.container{max-width:1200px;margin:0 auto;padding:0 1rem;display:flex;justify-content:space-between;align-items:center}.logo{font-size:1.5rem;font-weight:bold;color:#1a1a1a;text-decoration:none}.nav{display:flex;gap:2rem}.link{color:#666;text-decoration:none;font-weight:500;transition:color .3s ease}.link:hover{color:#1a1a1a}"],"names":[],"mappings":"AAAA;;;;;;AAAiF;;;;;;;;;AAAuH;;;;;;;AAA2E;;;;;AAA2B;;;;;;;AAAgF"}},
+    {"offset": {"line": 38, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}

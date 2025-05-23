@@ -1,0 +1,68 @@
+/* [project]/app/about/page.module.scss.module.css [app-client] (css) */
+.page-module-scss-module__2xlmdq__main {
+  min-height: 100vh;
+}
+
+.page-module-scss-module__2xlmdq__about {
+  padding: 4rem 0;
+  background-color: #f5f5f5;
+}
+
+.page-module-scss-module__2xlmdq__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.page-module-scss-module__2xlmdq__title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: #1a1a1a;
+}
+
+.page-module-scss-module__2xlmdq__content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.page-module-scss-module__2xlmdq__text .page-module-scss-module__2xlmdq__sectionTitle {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: #1a1a1a;
+}
+
+.page-module-scss-module__2xlmdq__text .page-module-scss-module__2xlmdq__sectionText {
+  color: #666;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+}
+
+.page-module-scss-module__2xlmdq__stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.page-module-scss-module__2xlmdq__stat {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 2px 4px #0000001a;
+}
+
+.page-module-scss-module__2xlmdq__stat .page-module-scss-module__2xlmdq__statNumber {
+  font-size: 2.5rem;
+  color: #0070f3;
+  margin-bottom: .5rem;
+}
+
+.page-module-scss-module__2xlmdq__stat .page-module-scss-module__2xlmdq__statText {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+/*# sourceMappingURL=app_about_page_module_scss_module_b52d8e.css.map*/

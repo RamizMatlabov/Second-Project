@@ -1,0 +1,82 @@
+/* [project]/app/page.module.scss.module.css [app-client] (css) */
+.page-module-scss-module__qnDekq__main {
+  min-height: 100vh;
+}
+
+.page-module-scss-module__qnDekq__hero {
+  background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+  color: #fff;
+  padding: 6rem 0;
+  text-align: center;
+}
+
+.page-module-scss-module__qnDekq__hero .page-module-scss-module__qnDekq__heroTitle {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.page-module-scss-module__qnDekq__hero .page-module-scss-module__qnDekq__heroText {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: .9;
+}
+
+.page-module-scss-module__qnDekq__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.page-module-scss-module__qnDekq__button {
+  background-color: #0070f3;
+  color: #fff;
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color .3s;
+}
+
+.page-module-scss-module__qnDekq__button:hover {
+  background-color: #0051a2;
+}
+
+.page-module-scss-module__qnDekq__features {
+  padding: 4rem 0;
+  background-color: #f5f5f5;
+}
+
+.page-module-scss-module__qnDekq__features .page-module-scss-module__qnDekq__featuresTitle {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+}
+
+.page-module-scss-module__qnDekq__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.page-module-scss-module__qnDekq__card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px #0000001a;
+  text-align: center;
+}
+
+.page-module-scss-module__qnDekq__card .page-module-scss-module__qnDekq__cardTitle {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #1a1a1a;
+}
+
+.page-module-scss-module__qnDekq__card .page-module-scss-module__qnDekq__cardText {
+  color: #666;
+  line-height: 1.6;
+}
+
+
+/*# sourceMappingURL=app_page_module_scss_module_6ff146.css.map*/
