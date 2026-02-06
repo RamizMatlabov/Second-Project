@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["file://C%3A/Users/FRONTEND/Desktop/project/Second-Project/app/about/page.module.scss.module.css"],"sourcesContent":[".main{min-height:100vh}.about{padding:4rem 0;background-color:#f5f5f5}.container{max-width:1200px;margin:0 auto;padding:0 1rem}.title{text-align:center;font-size:2.5rem;margin-bottom:3rem;color:#1a1a1a}.content{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}.text .sectionTitle{font-size:1.8rem;margin-bottom:1rem;color:#1a1a1a}.text .sectionText{color:#666;line-height:1.8;margin-bottom:2rem}.stats{display:grid;grid-template-columns:repeat(3, 1fr);gap:2rem}.stat{background:#fff;padding:2rem;border-radius:10px;text-align:center;box-shadow:0 2px 4px rgba(0,0,0,.1)}.stat .statNumber{font-size:2.5rem;color:#0070f3;margin-bottom:.5rem}.stat .statText{color:#666;font-size:1.1rem}"],"names":[],"mappings":"AAAA;;;;AAAuB;;;;;AAA+C;;;;;;AAAyD;;;;;;;AAA2E;;;;;;;AAA+E;;;;;;AAAsE;;;;;;AAAiE;;;;;;AAAkE;;;;;;;;AAA4G;;;;;;AAAqE"}},
-    {"offset": {"line": 66, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
-}
