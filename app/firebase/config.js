@@ -4,17 +4,17 @@ import { getAuth } from 'firebase/auth';
 import { getAnalytics } from 'firebase/analytics';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA9pgixawEIlpFKDYJh1G7DDgmmaVW0-68",
-  authDomain: "kapital-bank-dced8.firebaseapp.com",
-  projectId: "kapital-bank-dced8",
-  storageBucket: "kapital-bank-dced8.firebasestorage.app",
-  messagingSenderId: "800838635551",
-  appId: "1:800838635551:web:47172ebc7fec795d02852a"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 };
 
 // Проверка наличия необходимых переменных окружения
 if (!firebaseConfig.apiKey) {
-  console.error('Firebase API Key не найден. Пожалуйста, проверьте конфигурацию Firebase');
+  console.error('Firebase API Key не найден. Пожалуйста, проверьте конфигурацию Firebase в .env.local');
 }
 
 const app = initializeApp(firebaseConfig);

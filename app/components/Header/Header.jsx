@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import styles from './Header.module.scss';
 
 const Header = () => {
@@ -19,7 +20,15 @@ const Header = () => {
     <header className={styles.header}>
       <div className={styles.container}>
         <Link href="/" className={styles.logo}>
-          SafePoint Bank
+          <Image
+            src="/logo.png"
+            alt="SafePoint Bank"
+            width={180}
+            height={50}
+            style={{ width: 'auto', height: '40px' }}
+            priority
+          />
+          <span>SafePoint Bank</span>
         </Link>
         <nav className={styles.nav}>
           <Link href="/" className={styles.link}>

@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import styles from './Navigation.module.scss';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -28,8 +29,17 @@ export default function Navigation() {
   return (
     <nav className={`${styles.nav} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
+        {/* Logo */}
         <Link href="/" className={styles.logo}>
-          SafePoint Bank
+          <Image
+            src="/logo.png"
+            alt="SafePoint Bank"
+            width={180}
+            height={50}
+            style={{ width: 'auto', height: '40px' }}
+            priority
+          />
+          <span>SafePoint Bank</span>
         </Link>
 
         <button 

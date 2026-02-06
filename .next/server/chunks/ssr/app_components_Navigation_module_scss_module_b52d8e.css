@@ -26,6 +26,9 @@
 }
 
 .Navigation-module-scss-module__RfWkCa__logo {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
   font-size: 1.5rem;
   font-weight: 700;
   color: #007bff;

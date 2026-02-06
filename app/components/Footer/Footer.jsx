@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import styles from './Footer.module.scss';
 
 const Footer = () => {
@@ -8,7 +9,16 @@ const Footer = () => {
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.section}>
-            <h3>SafePoint Bank</h3>
+            <div style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <Image
+                src="/logo.png"
+                alt="SafePoint Bank"
+                width={150}
+                height={40}
+                style={{ width: 'auto', height: '30px' }}
+              />
+              <span style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>SafePoint Bank</span>
+            </div>
             <p>Ваш надежный финансовый партнер</p>
           </div>
           <div className={styles.section}>
