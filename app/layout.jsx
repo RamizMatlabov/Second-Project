@@ -5,7 +5,7 @@ import Navigation from './components/Navigation';
 const inter = Inter({ subsets: ['latin', 'cyrillic'] });
 
 export const metadata = {
-  title: 'Kapital Bank',
+  title: 'SafePoint Bank',
   description: 'Ваш надежный финансовый партнер',
 };
 

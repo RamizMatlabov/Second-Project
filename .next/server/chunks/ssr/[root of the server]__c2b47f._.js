@@ -85,7 +85,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$Navigat
 ;
 ;
 const metadata = {
-    title: 'Kapital Bank',
+    title: 'SafePoint Bank',
     description: 'Ваш надежный финансовый партнер'
 };
 function RootLayout({ children }) {

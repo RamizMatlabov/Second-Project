@@ -19,7 +19,7 @@ const Header = () => {
     <header className={styles.header}>
       <div className={styles.container}>
         <Link href="/" className={styles.logo}>
-          Kapital Bank
+          SafePoint Bank
         </Link>
         <nav className={styles.nav}>
           <Link href="/" className={styles.link}>

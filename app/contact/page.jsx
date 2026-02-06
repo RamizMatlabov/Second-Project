@@ -43,7 +43,7 @@ export default function Contact() {
                 </div>
                 <div className={styles.item}>
                   <h3 className={styles.itemTitle}>Email</h3>
-                  <p className={styles.itemText}>info@kapitalbank.ru</p>
+                  <p className={styles.itemText}>info@safepointbank.ru</p>
                 </div>
               </div>
             </div>

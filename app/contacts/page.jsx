@@ -38,7 +38,7 @@ export default function Contacts() {
             >
               <div className={styles.infoIcon}>✉️</div>
               <h3>Email</h3>
-              <p>info@kapitalbank.ru</p>
+              <p>info@safepointbank.ru</p>
               <p>Ответим в течение 24 часов</p>
             </motion.div>
 

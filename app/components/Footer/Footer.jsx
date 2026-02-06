@@ -8,13 +8,13 @@ const Footer = () => {
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={styles.section}>
-            <h3>Kapital Bank</h3>
+            <h3>SafePoint Bank</h3>
             <p>Ваш надежный финансовый партнер</p>
           </div>
           <div className={styles.section}>
             <h4>Контакты</h4>
             <p>Телефон: +7 (999) 123-45-67</p>
-            <p>Email: info@kapitalbank.ru</p>
+            <p>Email: info@safepointbank.ru</p>
           </div>
           <div className={styles.section}>
             <h4>Адрес</h4>
@@ -22,7 +22,7 @@ const Footer = () => {
           </div>
         </div>
         <div className={styles.bottom}>
-          <p>&copy; 2024 Kapital Bank. Все права защищены.</p>
+          <p>&copy; 2024 SafePoint Bank. Все права защищены.</p>
         </div>
       </div>
     </footer>

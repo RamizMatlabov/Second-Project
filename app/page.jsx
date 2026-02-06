@@ -13,7 +13,7 @@ export default function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1>Kapital Bank</h1>
+          <h1>SafePoint Bank</h1>
           <p>Ваш надежный финансовый партнер</p>
           <div className={styles.heroButtons}>
             <button className={styles.primaryButton}>Начать сейчас</button>

@@ -29,7 +29,7 @@ export default function Navigation() {
     <nav className={`${styles.nav} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
         <Link href="/" className={styles.logo}>
-          Kapital Bank
+          SafePoint Bank
         </Link>
 
         <button 

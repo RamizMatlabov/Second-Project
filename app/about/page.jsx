@@ -12,7 +12,7 @@ export default function About() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1>О Kapital Bank</h1>
+          <h1>О SafePoint Bank</h1>
           <p>Ваш надежный финансовый партнер с 1995 года</p>
         </motion.div>
       </section>
@@ -28,7 +28,7 @@ export default function About() {
             >
               <div className={styles.year}>1995</div>
               <h3>Основание банка</h3>
-              <p>Kapital Bank был основан с целью предоставления качественных банковских услуг</p>
+              <p>SafePoint Bank был основан с целью предоставления качественных банковских услуг</p>
             </motion.div>
 
             <motion.div 
