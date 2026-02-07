@@ -1,17 +1,58 @@
 :root {
-  --primary-color: #007bff;
-  --primary-dark: #0056b3;
-  --text-color: #333;
-  --text-light: #666;
-  --background-light: #f8f9fa;
-  --white: #ffffff;
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  /* Brand Colors - Premium Fintech */
+  --primary-color: #0a2540; /* Deep Navy */
+  --primary-light: #183b5e;
+  --primary-dark: #051424;
+  
+  --accent-color: #00d4ff; /* Electric Cyan */
+  --accent-hover: #00b8dd;
+  --accent-glow: rgba(0, 212, 255, 0.4);
+
+  --success: #00d084;
+  --error: #ff4d4f;
+  --warning: #faad14;
+
+  /* Neutrals */
+  --bg-color: #f6f9fc; /* Soft Gray/White for background */
+  --bg-card: #ffffff;
+  --text-main: #1a1f36; /* Dark Navy for text (softer than black) */
+  --text-secondary: #4f566b;
+  --text-light: #8792a2;
+  --border-color: #e3e8ee;
+
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-blur: 16px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.02);
+  --shadow-md: 0 8px 16px rgba(10, 37, 64, 0.06);
+  --shadow-lg: 0 20px 40px rgba(10, 37, 64, 0.1);
+  --shadow-glow: 0 0 20px rgba(0, 212, 255, 0.3);
+
+  /* Spacing */
+  --container-width: 1200px;
+  --header-height: 80px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+
+  /* Transitions */
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg-color: #0a2540;
+    --bg-card: #112d4a;
+    --text-main: #ffffff;
+    --text-secondary: #aab7c4;
+    --border-color: #1f3a5a;
+    --glass-bg: rgba(10, 37, 64, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.1);
   }
 }
 
@@ -23,10 +64,11 @@ body {
 }
 
 body {
-  color: var(--text-color);
-  background: var(--background-light);
+  color: var(--text-main);
+  background: var(--bg-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  line-height: 1.6;
 }
 
 * {
@@ -38,11 +80,14 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 button {
   cursor: pointer;
   font-family: inherit;
+  border: none;
+  outline: none;
 }
 
 input,
@@ -56,71 +101,28 @@ textarea {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--background-light);
+  background: var(--bg-color);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary-color);
+  background: var(--text-light);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-dark);
-}
-
-/* Анимации */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes slideUp {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  background: var(--primary-light);
 }
 
 /* Утилиты */
 .container {
-  max-width: 1200px;
+  max-width: var(--container-width);
   margin: 0 auto;
   padding: 0 2rem;
+  width: 100%;
 }
 
-.text-center {
-  text-align: center;
-}
-
-.mt-1 { margin-top: 0.5rem; }
-.mt-2 { margin-top: 1rem; }
-.mt-3 { margin-top: 1.5rem; }
-.mt-4 { margin-top: 2rem; }
-.mt-5 { margin-top: 2.5rem; }
-
-.mb-1 { margin-bottom: 0.5rem; }
-.mb-2 { margin-bottom: 1rem; }
-.mb-3 { margin-bottom: 1.5rem; }
-.mb-4 { margin-bottom: 2rem; }
-.mb-5 { margin-bottom: 2.5rem; }
-
-/* Медиа-запросы */
 @media (max-width: 768px) {
   .container {
-    padding: 0 1rem;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+    padding: 0 1.5rem;
   }
 }

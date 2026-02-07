@@ -1,15 +1,17 @@
+@import "../../mixins.scss";
+
 .container {
   max-width: 400px;
   margin: 2rem auto;
   padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  background-color: white;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  background-color: var(--bg-card);
 }
 
 .container h2 {
   text-align: center;
-  color: #333;
+  color: var(--text-main);
   margin-bottom: 1.5rem;
   font-size: 1.8rem;
 }
@@ -28,43 +30,46 @@
 
 .inputGroup label {
   font-weight: 500;
-  color: #333;
+  color: var(--text-main);
   font-size: 0.95rem;
 }
 
 .inputGroup input {
   padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
   font-size: 1rem;
   transition: border-color 0.2s, box-shadow 0.2s;
+  background: var(--bg-color);
+  color: var(--text-main);
 }
 
 .inputGroup input:focus {
   outline: none;
-  border-color: #0070f3;
-  box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.1);
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px var(--accent-glow);
 }
 
 .inputGroup input::placeholder {
-  color: #999;
+  color: var(--text-light);
 }
 
 .button {
-  background-color: #0070f3;
+  background-color: var(--primary-color);
   color: white;
   padding: 0.875rem;
   border: none;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
   margin-top: 0.5rem;
+  
+  @include hover-lift;
 }
 
 .button:hover:not(:disabled) {
-  background-color: #0051b3;
+  background-color: var(--primary-light);
 }
 
 .button:active:not(:disabled) {
@@ -79,16 +84,16 @@
 .toggleButton {
   background: none;
   border: none;
-  color: #0070f3;
+  color: var(--primary-color);
   font-size: 0.9rem;
   cursor: pointer;
   padding: 0.5rem;
   margin-top: 0.5rem;
-  transition: color 0.2s;
+  transition: color var(--transition-normal);
 }
 
 .toggleButton:hover:not(:disabled) {
-  color: #0051b3;
+  color: var(--accent-color);
   text-decoration: underline;
 }
 

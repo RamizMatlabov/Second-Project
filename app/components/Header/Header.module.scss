@@ -1,6 +1,8 @@
+@import "../../mixins.scss";
+
 .header {
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--bg-card);
+  box-shadow: var(--shadow-sm);
   padding: 1rem 0;
   position: sticky;
   top: 0;
@@ -8,7 +10,7 @@
 }
 
 .container {
-  max-width: 1200px;
+  max-width: var(--container-width);
   margin: 0 auto;
   padding: 0 1rem;
   display: flex;
@@ -22,12 +24,12 @@
   gap: 0.5rem;
   font-size: 1.5rem;
   font-weight: bold;
-  color: #1a1a1a;
+  color: var(--text-main);
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: color var(--transition-normal);
 
   &:hover {
-    color: #0070f3;
+    color: var(--accent-color);
   }
 }
 
@@ -38,29 +40,14 @@
 }
 
 .link {
-  color: #666;
-  text-decoration: none;
+  color: var(--text-secondary);
   font-weight: 500;
-  transition: all 0.3s ease;
+  transition: color var(--transition-normal);
   padding: 0.5rem 0;
-  position: relative;
+  
+  @include hover-link-underline;
 
   &:hover {
-    color: #0070f3;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: #0070f3;
-    transition: width 0.3s ease;
-  }
-
-  &:hover::after {
-    width: 100%;
+    color: var(--accent-color);
   }
 } 
