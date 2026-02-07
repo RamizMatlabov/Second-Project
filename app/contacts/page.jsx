@@ -1,6 +1,7 @@
 'use client';
 import styles from './page.module.scss';
 import { motion } from 'framer-motion';
+import { FaPhoneAlt, FaEnvelope, FaBuilding } from 'react-icons/fa';
 
 export default function Contacts() {
   return (
@@ -25,7 +26,7 @@ export default function Contacts() {
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
             >
-              <div className={styles.infoIcon}>📞</div>
+              <div className={styles.infoIcon}><FaPhoneAlt /></div>
               <h3>Телефон</h3>
               <p>+7 (800) 123-45-67</p>
               <p>Круглосуточно</p>
@@ -36,7 +37,7 @@ export default function Contacts() {
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
             >
-              <div className={styles.infoIcon}>✉️</div>
+              <div className={styles.infoIcon}><FaEnvelope /></div>
               <h3>Email</h3>
               <p>info@safepointbank.ru</p>
               <p>Ответим в течение 24 часов</p>
@@ -47,7 +48,7 @@ export default function Contacts() {
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
             >
-              <div className={styles.infoIcon}>🏢</div>
+              <div className={styles.infoIcon}><FaBuilding /></div>
               <h3>Адрес</h3>
               <p>г. Москва, ул. Примерная, 123</p>
               <p>Пн-Пт: 9:00 - 18:00</p>

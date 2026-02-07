@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import styles from './page.module.scss';
 import { motion } from 'framer-motion';
+import { FaCreditCard, FaLock, FaMobileAlt } from 'react-icons/fa';
 
 export default function Home() {
   return (
@@ -30,7 +31,7 @@ export default function Home() {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
           >
-            <div className={styles.featureIcon}>💳</div>
+            <div className={styles.featureIcon}><FaCreditCard /></div>
             <h3>Быстрые переводы</h3>
             <p>Мгновенные переводы в любое время и в любую точку мира</p>
           </motion.div>
@@ -40,7 +41,7 @@ export default function Home() {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
           >
-            <div className={styles.featureIcon}>🔒</div>
+            <div className={styles.featureIcon}><FaLock /></div>
             <h3>Безопасность</h3>
             <p>Современные технологии защиты ваших средств</p>
           </motion.div>
@@ -50,7 +51,7 @@ export default function Home() {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3 }}
           >
-            <div className={styles.featureIcon}>📱</div>
+            <div className={styles.featureIcon}><FaMobileAlt /></div>
             <h3>Мобильный банкинг</h3>
             <p>Управляйте финансами с любого устройства</p>
           </motion.div>

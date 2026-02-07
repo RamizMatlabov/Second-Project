@@ -1,6 +1,7 @@
 'use client';
 import styles from './page.module.scss';
 import { motion } from 'framer-motion';
+import { FaHandshake, FaLightbulb, FaBullseye, FaUserTie, FaLaptopCode } from 'react-icons/fa';
 
 export default function About() {
   return (
@@ -73,7 +74,7 @@ export default function About() {
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
             >
-              <div className={styles.valueIcon}>🤝</div>
+              <div className={styles.valueIcon}><FaHandshake /></div>
               <h3>Надежность</h3>
               <p>Мы гарантируем безопасность ваших средств и конфиденциальность данных</p>
             </motion.div>
@@ -83,7 +84,7 @@ export default function About() {
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
             >
-              <div className={styles.valueIcon}>💡</div>
+              <div className={styles.valueIcon}><FaLightbulb /></div>
               <h3>Инновации</h3>
               <p>Постоянно внедряем новые технологии для удобства клиентов</p>
             </motion.div>
@@ -93,7 +94,7 @@ export default function About() {
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
             >
-              <div className={styles.valueIcon}>🎯</div>
+              <div className={styles.valueIcon}><FaBullseye /></div>
               <h3>Качество</h3>
               <p>Предоставляем только лучшие финансовые продукты и услуги</p>
             </motion.div>
@@ -110,7 +111,7 @@ export default function About() {
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
             >
-              <div className={styles.memberPhoto}>👨‍💼</div>
+              <div className={styles.memberPhoto}><FaUserTie /></div>
               <h3>Александр Петров</h3>
               <p>Генеральный директор</p>
             </motion.div>
@@ -120,7 +121,7 @@ export default function About() {
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
             >
-              <div className={styles.memberPhoto}>👩‍💼</div>
+              <div className={styles.memberPhoto}><FaUserTie /></div>
               <h3>Елена Смирнова</h3>
               <p>Финансовый директор</p>
             </motion.div>
@@ -130,7 +131,7 @@ export default function About() {
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }}
             >
-              <div className={styles.memberPhoto}>👨‍💻</div>
+              <div className={styles.memberPhoto}><FaLaptopCode /></div>
               <h3>Дмитрий Иванов</h3>
               <p>Технический директор</p>
             </motion.div>
