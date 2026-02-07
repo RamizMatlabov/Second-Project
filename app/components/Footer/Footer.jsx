@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from './Footer.module.scss';
 
 const Footer = () => {
@@ -21,6 +22,16 @@ const Footer = () => {
             </div>
             <p>Ваш надежный финансовый партнер</p>
           </div>
+          
+          <div className={styles.section}>
+            <h4>Навигация</h4>
+            <ul className={styles.links}>
+              <li><Link href="/">Главная</Link></li>
+              <li><Link href="/about">О нас</Link></li>
+              <li><Link href="/contacts">Контакты</Link></li>
+            </ul>
+          </div>
+
           <div className={styles.section}>
             <h4>Контакты</h4>
             <p>Телефон: +7 (999) 123-45-67</p>
