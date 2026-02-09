@@ -7,7 +7,7 @@ const fadeInUp = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true },
-  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+  transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] }
 };
 
 const staggerContainer = {
@@ -15,8 +15,8 @@ const staggerContainer = {
   whileInView: { opacity: 1 },
   viewport: { once: true },
   transition: {
-    staggerChildren: 0.2,
-    delayChildren: 0.1
+    staggerChildren: 0.1,
+    delayChildren: 0
   }
 };
 
@@ -55,7 +55,7 @@ export default function About() {
             <motion.div 
               className={styles.timelineItem}
               variants={fadeInUp}
-              whileHover={{ y: -10 }}
+              whileHover={{ y: -10, transition: { duration: 0.1 } }}
             >
               <div className={styles.year}>1995</div>
               <h3>Основание</h3>
@@ -65,7 +65,7 @@ export default function About() {
             <motion.div 
               className={styles.timelineItem}
               variants={fadeInUp}
-              whileHover={{ y: -10 }}
+              whileHover={{ y: -10, transition: { duration: 0.1 } }}
             >
               <div className={styles.year}>2005</div>
               <h3>Федеральная сеть</h3>
@@ -75,7 +75,7 @@ export default function About() {
             <motion.div 
               className={styles.timelineItem}
               variants={fadeInUp}
-              whileHover={{ y: -10 }}
+              whileHover={{ y: -10, transition: { duration: 0.1 } }}
             >
               <div className={styles.year}>2015</div>
               <h3>Digital First</h3>
@@ -85,7 +85,7 @@ export default function About() {
             <motion.div 
               className={styles.timelineItem}
               variants={fadeInUp}
-              whileHover={{ y: -10 }}
+              whileHover={{ y: -10, transition: { duration: 0.1 } }}
             >
               <div className={styles.year}>2024</div>
               <h3>Экосистема</h3>
