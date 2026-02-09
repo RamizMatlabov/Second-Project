@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase/config';
 import styles from './page.module.scss';
+import Image from 'next/image';
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
@@ -25,20 +26,30 @@ export default function Auth() {
 
     try {
       if (!isLogin) {
-        // Регистрация
+        // Registration
         if (formData.password !== formData.confirmPassword) {
-          throw new Error('Пароли не совпадают');
+          throw new Error('Passwords do not match');
         }
         await createUserWithEmailAndPassword(auth, formData.email, formData.password);
-        setSuccessMessage('Регистрация успешно завершена! Теперь вы можете войти.');
-        setIsLogin(true); // Переключаем на форму входа
+        setSuccessMessage('Registration successful! You can now log in.');
+        setTimeout(() => {
+            setIsLogin(true);
+            setSuccessMessage('');
+        }, 2000);
       } else {
-        // Вход
+        // Login
         await signInWithEmailAndPassword(auth, formData.email, formData.password);
-        setSuccessMessage('Вход выполнен успешно!');
+        setSuccessMessage('Login successful! Redirecting...');
+        // In a real app, you would redirect here using useRouter
       }
     } catch (error) {
-      setError(error.message);
+      console.error(error);
+      let msg = error.message;
+      if (error.code === 'auth/email-already-in-use') msg = 'Email is already in use.';
+      if (error.code === 'auth/invalid-email') msg = 'Invalid email address.';
+      if (error.code === 'auth/weak-password') msg = 'Password should be at least 6 characters.';
+      if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') msg = 'Invalid email or password.';
+      setError(msg);
     } finally {
       setLoading(false);
     }
@@ -57,124 +68,164 @@ export default function Auth() {
       <div className={styles.container}>
         <motion.div 
           className={styles.authCard}
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
         >
-          <div className={styles.tabs}>
-            <button
-              className={`${styles.tab} ${isLogin ? styles.active : ''}`}
-              onClick={() => setIsLogin(true)}
-            >
-              Вход
-            </button>
-            <button
-              className={`${styles.tab} ${!isLogin ? styles.active : ''}`}
-              onClick={() => setIsLogin(false)}
-            >
-              Регистрация
-            </button>
-          </div>
+          <div className={styles.accentLine} />
+          
+          <div className={styles.cardContent}>
+            <div className={styles.header}>
+              <div className={styles.logo}>
+                 <Image src="/logo.png" alt="SafePoint Bank Logo" width={70} height={50} />
+                 SafePoint Bank
+              </div>
+              <p className={styles.subtitle}>
+                {isLogin ? 'Welcome back, please login to your account.' : 'Create an account to get started.'}
+              </p>
+            </div>
 
-          <AnimatePresence mode="wait">
-            <motion.form
-              key={isLogin ? 'login' : 'register'}
-              className={styles.form}
-              initial={{ opacity: 0, x: isLogin ? -20 : 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: isLogin ? 20 : -20 }}
-              transition={{ duration: 0.3 }}
-              onSubmit={handleSubmit}
-            >
-              {error && (
+            <div className={styles.tabsContainer}>
+                {/* Background pill that moves */}
                 <motion.div 
-                  className={styles.error}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
+                    className={styles.activeTabIndicator}
+                    initial={false}
+                    animate={{ 
+                        x: isLogin ? 0 : '100%' 
+                    }}
+                    transition={{ type: "spring", stiffness: 700, damping: 30 }}
+                />
+                
+                <button
+                    className={`${styles.tab} ${isLogin ? styles.active : ''}`}
+                    onClick={() => setIsLogin(true)}
                 >
-                  {error}
-                </motion.div>
-              )}
-
-              {successMessage && (
-                <motion.div 
-                  className={styles.success}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
+                    Login
+                </button>
+                <button
+                    className={`${styles.tab} ${!isLogin ? styles.active : ''}`}
+                    onClick={() => setIsLogin(false)}
                 >
-                  {successMessage}
-                </motion.div>
-              )}
+                    Register
+                </button>
+            </div>
 
-              {!isLogin && (
-                <div className={styles.formGroup}>
-                  <label htmlFor="name">Имя</label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
+            <form onSubmit={handleSubmit} className={styles.form}>
+              <AnimatePresence mode="wait">
+                {error && (
+                    <motion.div 
+                        className={styles.error}
+                        initial={{ opacity: 0, height: 0, marginBottom: 0 }}
+                        animate={{ opacity: 1, height: 'auto', marginBottom: 10 }}
+                        exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+                    >
+                        {error}
+                    </motion.div>
+                )}
+
+                {successMessage && (
+                    <motion.div 
+                        className={styles.success}
+                        initial={{ opacity: 0, height: 0, marginBottom: 0 }}
+                        animate={{ opacity: 1, height: 'auto', marginBottom: 10 }}
+                        exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+                    >
+                        {successMessage}
+                    </motion.div>
+                )}
+              </AnimatePresence>
+
+              <div className={styles.inputGroup}>
+                <label className={styles.label} htmlFor="email">Email Address</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    className={styles.input}
+                    placeholder="name@example.com"
+                    value={formData.email}
                     onChange={handleChange}
-                    placeholder="Введите ваше имя"
                     required
-                  />
-                </div>
-              )}
-
-              <div className={styles.formGroup}>
-                <label htmlFor="email">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="Введите ваш email"
-                  required
                 />
               </div>
 
-              <div className={styles.formGroup}>
-                <label htmlFor="password">Пароль</label>
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="Введите пароль"
-                  required
-                />
-              </div>
+              <AnimatePresence initial={false} mode="popLayout">
+                {!isLogin && (
+                    <motion.div
+                        initial={{ opacity: 0, height: 0, overflow: 'hidden' }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.1 }}
+                        className={styles.inputGroup}
+                        key="name-field"
+                    >
+                        <label className={styles.label} htmlFor="name">Full Name</label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            className={styles.input}
+                            placeholder="John Doe"
+                            value={formData.name}
+                            onChange={handleChange}
+                            required={!isLogin}
+                        />
+                    </motion.div>
+                )}
+              </AnimatePresence>
 
-              {!isLogin && (
-                <div className={styles.formGroup}>
-                  <label htmlFor="confirmPassword">Подтвердите пароль</label>
-                  <input
+              <div className={styles.inputGroup}>
+                <label className={styles.label} htmlFor="password">Password</label>
+                <input
                     type="password"
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    value={formData.confirmPassword}
+                    id="password"
+                    name="password"
+                    className={styles.input}
+                    placeholder="••••••••"
+                    value={formData.password}
                     onChange={handleChange}
-                    placeholder="Подтвердите пароль"
                     required
-                  />
-                </div>
-              )}
+                />
+              </div>
+
+              <AnimatePresence initial={false} mode="popLayout">
+                {!isLogin && (
+                    <motion.div
+                        initial={{ opacity: 0, height: 0, overflow: 'hidden' }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.1 }}
+                        className={styles.inputGroup}
+                        key="confirm-password-field"
+                    >
+                        <label className={styles.label} htmlFor="confirmPassword">Confirm Password</label>
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            className={styles.input}
+                            placeholder="••••••••"
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
+                            required={!isLogin}
+                        />
+                    </motion.div>
+                )}
+              </AnimatePresence>
 
               <motion.button
+                whileHover={{ scale: 1.02, translateY: -2 }}
+                whileTap={{ scale: 0.98 }}
                 type="submit"
                 className={styles.submitButton}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
                 disabled={loading}
               >
-                {loading ? 'Загрузка...' : (isLogin ? 'Войти' : 'Зарегистрироваться')}
+                {loading ? 'Processing...' : (isLogin ? 'Sign In' : 'Create Account')}
               </motion.button>
-            </motion.form>
-          </AnimatePresence>
+            </form>
+          </div>
         </motion.div>
       </div>
     </main>
   );
-} 
+}
