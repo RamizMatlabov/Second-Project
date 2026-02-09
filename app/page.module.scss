@@ -264,10 +264,7 @@
   border: 1px solid transparent;
 
   &:hover {
-    background: #fff;
-    box-shadow: var(--shadow-lg);
-    border-color: var(--border-color);
-    transform: translateY(-5px);
+    border-color: var(--accent-color);
   }
 }
 
@@ -283,11 +280,6 @@
   color: var(--accent-color);
   margin-bottom: 1.5rem;
   transition: all 0.3s ease;
-  
-  .featureCard:hover & {
-    background: var(--accent-color);
-    color: #fff;
-  }
 }
 
 .featureCard h3 {
