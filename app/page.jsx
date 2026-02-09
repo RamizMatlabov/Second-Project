@@ -116,11 +116,11 @@ export default function Home() {
         <div className={styles.featureGrid}>
           <motion.div
             className={styles.featureCard}
-            whileHover={{ y: -10 }}
+            whileHover={{ y: -10, transition: { duration: 0.1 } }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.1,}}
           >
             <div className={styles.featureIcon}><FaCreditCard /></div>
             <h3>Мгновенные переводы</h3>
@@ -129,11 +129,11 @@ export default function Home() {
 
           <motion.div
             className={styles.featureCard}
-            whileHover={{ y: -10 }}
+            whileHover={{ y: -10, transition: { duration: 0.1 } }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
+            transition={{ duration: 0.1, }}
           >
             <div className={styles.featureIcon}><FaShieldAlt /></div>
             <h3>Банковская гарантия</h3>
@@ -142,11 +142,11 @@ export default function Home() {
 
           <motion.div
             className={styles.featureCard}
-            whileHover={{ y: -10 }}
+            whileHover={{ y: -10, transition: { duration: 0.1 } }}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.4 }}
+            transition={{ duration: 0.1, }}
           >
             <div className={styles.featureIcon}><FaChartLine /></div>
             <h3>Умная аналитика</h3>
