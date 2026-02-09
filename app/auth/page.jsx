@@ -93,7 +93,7 @@ export default function Auth() {
                     animate={{ 
                         x: isLogin ? 0 : '100%' 
                     }}
-                    transition={{ type: "spring", stiffness: 700, damping: 30 }}
+                    transition={{ duration: 0.05, ease: "linear" }}
                 />
                 
                 <button
@@ -155,7 +155,7 @@ export default function Auth() {
                         initial={{ opacity: 0, height: 0, overflow: 'hidden' }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.1 }}
+                        transition={{ duration: 0.05 }}
                         className={styles.inputGroup}
                         key="name-field"
                     >
@@ -194,7 +194,7 @@ export default function Auth() {
                         initial={{ opacity: 0, height: 0, overflow: 'hidden' }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.1 }}
+                        transition={{ duration: 0.05 }}
                         className={styles.inputGroup}
                         key="confirm-password-field"
                     >
