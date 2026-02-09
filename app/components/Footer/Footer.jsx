@@ -34,12 +34,12 @@ const Footer = () => {
 
           <div className={styles.section}>
             <h4>Контакты</h4>
-            <p>Телефон: +7 (999) 123-45-67</p>
-            <p>Email: info@safepointbank.ru</p>
+            <p>Телефон: +998334334404</p>
+            <p>Email: ramizmatlabov923@gmail.com</p>
           </div>
           <div className={styles.section}>
             <h4>Адрес</h4>
-            <p>г. Москва, ул. Примерная, д. 123</p>
+            <p>г. Самарканд, Абу Рейхан Беруни</p>
           </div>
         </div>
         <div className={styles.bottom}>

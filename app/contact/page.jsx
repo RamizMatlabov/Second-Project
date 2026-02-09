@@ -35,15 +35,15 @@ export default function Contact() {
               <div className={styles.details}>
                 <div className={styles.item}>
                   <h3 className={styles.itemTitle}>Адрес</h3>
-                  <p className={styles.itemText}>г. Москва, ул. Примерная, д. 123</p>
+                  <p className={styles.itemText}>г. Самарканд, Абу Рейхан Беруни</p>
                 </div>
                 <div className={styles.item}>
                   <h3 className={styles.itemTitle}>Телефон</h3>
-                  <p className={styles.itemText}>+7 (999) 123-45-67</p>
+                  <p className={styles.itemText}>+998334334404</p>
                 </div>
                 <div className={styles.item}>
                   <h3 className={styles.itemTitle}>Email</h3>
-                  <p className={styles.itemText}>info@safepointbank.ru</p>
+                  <p className={styles.itemText}>ramizmatlabov923@gmail.com</p>
                 </div>
               </div>
             </div>

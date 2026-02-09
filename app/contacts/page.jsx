@@ -50,7 +50,7 @@ export default function Contacts() {
             >
               <div className={styles.infoIcon}><FaPhoneAlt /></div>
               <h3>Телефон</h3>
-              <p>+7 (800) 123-45-67</p>
+              <p>+998334334404</p>
               <p>Круглосуточная поддержка</p>
             </motion.div>
 
@@ -61,7 +61,7 @@ export default function Contacts() {
             >
               <div className={styles.infoIcon}><FaEnvelope /></div>
               <h3>Email</h3>
-              <p>support@safepoint.ru</p>
+              <p>ramizmatlabov923@gmail.com</p>
               <p>Для общих вопросов и предложений</p>
             </motion.div>
 
@@ -72,8 +72,8 @@ export default function Contacts() {
             >
               <div className={styles.infoIcon}><FaBuilding /></div>
               <h3>Офис</h3>
-              <p>Москва, Пресненская наб., 12</p>
-              <p>Башня "Федерация", 45 этаж</p>
+              <p>Самарканд, Абу Рейхан Беруни</p>
+              <p>Узбекистан</p>
             </motion.div>
           </motion.div>
         </div>
@@ -148,7 +148,7 @@ export default function Contacts() {
           >
             {/* Здесь будет карта */}
             <div className={styles.mapPlaceholder}>
-              <p>Москва, Деловой центр "Москва-Сити"</p>
+              <p>Самарканд, Абу Рейхан Беруни</p>
               <span style={{ fontSize: '0.9rem', marginTop: '0.5rem' }}>Интерактивная карта загружается...</span>
             </div>
           </motion.div>
