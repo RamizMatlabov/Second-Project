@@ -162,19 +162,19 @@
   padding: 2rem;
   box-shadow: var(--shadow-lg);
   position: absolute;
-  width: 320px;
+  width: 400px;
   
   &.card1 {
     top: 10%;
-    right: 0;
+    right: -50px;
     z-index: 2;
   }
   
   &.card2 {
     bottom: 15%;
-    left: 0;
+    left: -50px;
     z-index: 3;
-    width: 280px;
+    width: 400px;
   }
 }
 

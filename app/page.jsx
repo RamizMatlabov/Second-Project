@@ -73,7 +73,7 @@ export default function Home() {
             {/* Floating Glass Card 2 */}
             <motion.div 
               className={`${styles.floatingCard} ${styles.card2}`}
-              animate={{ y: [0, 20, 0] }}
+              animate={{ y: [0, 25, 0] }}
               transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
             >
               <div className={styles.cardHeader}>
