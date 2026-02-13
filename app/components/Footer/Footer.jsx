@@ -33,17 +33,23 @@ const Footer = () => {
           </div>
 
           <div className={styles.section}>
+            <h4>Услуги</h4>
+            <ul className={styles.links}>
+              <li><Link href="/business">Для бизнеса</Link></li>
+              <li><Link href="/locations">Отделения</Link></li>
+              <li><Link href="/security">Безопасность</Link></li>
+              <li><Link href="/faq">FAQ</Link></li>
+            </ul>
+          </div>
+
+          <div className={styles.section}>
             <h4>Контакты</h4>
             <p>Телефон: +998334334404</p>
             <p>Email: ramizmatlabov923@gmail.com</p>
           </div>
-          <div className={styles.section}>
-            <h4>Адрес</h4>
-            <p>г. Самарканд, Абу Рейхан Беруни</p>
-          </div>
         </div>
         <div className={styles.bottom}>
-          <p>&copy; 2024 SafePoint Bank. Все права защищены.</p>
+          <p>&copy; 2026 SafePoint Bank. Все права защищены.</p>
         </div>
       </div>
     </footer>
