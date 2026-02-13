@@ -5,9 +5,11 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'fire
 import { auth } from '../firebase/config';
 import styles from './page.module.scss';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
+  const router = useRouter();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -40,7 +42,9 @@ export default function Auth() {
         // Login
         await signInWithEmailAndPassword(auth, formData.email, formData.password);
         setSuccessMessage('Login successful! Redirecting...');
-        // In a real app, you would redirect here using useRouter
+        setTimeout(() => {
+          router.push('/dashboard');
+        }, 1000);
       }
     } catch (error) {
       console.error(error);

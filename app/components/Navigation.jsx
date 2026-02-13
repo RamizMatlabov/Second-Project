@@ -5,11 +5,13 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import styles from './Navigation.module.scss';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '../context/AuthContext';
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { user } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -67,9 +69,15 @@ export default function Navigation() {
                   {link.label}
                 </Link>
               ))}
-              <Link href="/auth" className={styles.authButton}>
-                Войти
-              </Link>
+              {user ? (
+                <Link href="/dashboard" className={styles.authButton}>
+                  Личный кабинет
+                </Link>
+              ) : (
+                <Link href="/auth" className={styles.authButton}>
+                  Войти
+                </Link>
+              )}
             </motion.div>
           )}
         </AnimatePresence>
