@@ -1,12 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MdExpandMore, MdCreditCard, MdAccountBalance, MdSmartphone } from 'react-icons/md';
+import { MdExpandMore, MdCreditCard, MdAccountBalance, MdSmartphone, MdSearch, MdHelpOutline, MdChat } from 'react-icons/md';
 import styles from './page.module.scss';
 
 const faqData = [
   {
+    id: 'cards',
     category: 'Карты',
     icon: <MdCreditCard />,
     questions: [
@@ -25,6 +26,7 @@ const faqData = [
     ]
   },
   {
+    id: 'accounts',
     category: 'Счета',
     icon: <MdAccountBalance />,
     questions: [
@@ -39,6 +41,7 @@ const faqData = [
     ]
   },
   {
+    id: 'app',
     category: 'Мобильное приложение',
     icon: <MdSmartphone />,
     questions: [
@@ -54,14 +57,12 @@ const faqData = [
   }
 ];
 
-const AccordionItem = ({ question, answer }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
+const AccordionItem = ({ question, answer, isOpen, onClick }) => {
   return (
     <div className={styles.accordionItem}>
       <button 
         className={`${styles.question} ${isOpen ? styles.open : ''}`} 
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={onClick}
       >
         <span>{question}</span>
         <motion.div
@@ -91,28 +92,109 @@ const AccordionItem = ({ question, answer }) => {
 };
 
 const FAQPage = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+  const [activeCategory, setActiveCategory] = useState('all');
+  const [openIndex, setOpenIndex] = useState(null);
+
+  const filteredFaq = useMemo(() => {
+    return faqData.map(cat => ({
+      ...cat,
+      questions: cat.questions.filter(q => 
+        q.q.toLowerCase().includes(searchTerm.toLowerCase()) || 
+        q.a.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    })).filter(cat => 
+      (activeCategory === 'all' || cat.id === activeCategory) && 
+      cat.questions.length > 0
+    );
+  }, [searchTerm, activeCategory]);
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <h1>Часто задаваемые вопросы</h1>
-        <p>Найдите ответы на популярные вопросы о наших услугах</p>
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          <h1>Часто задаваемые вопросы</h1>
+          <p>Найдите ответы на популярные вопросы о наших услугах</p>
+        </motion.div>
+
+        <div className={styles.searchWrapper}>
+          <MdSearch className={styles.searchIcon} />
+          <input 
+            type="text" 
+            placeholder="Поиск по вопросам и ответам..." 
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className={styles.searchInput}
+          />
+        </div>
       </header>
 
-      <div className={styles.faqContent}>
-        {faqData.map((category, idx) => (
-          <section key={idx} className={styles.categorySection}>
-            <div className={styles.categoryTitle}>
-              <span className={styles.icon}>{category.icon}</span>
-              <h2>{category.category}</h2>
+      <div className={styles.mainContent}>
+        <aside className={styles.sidebar}>
+          <button 
+            className={`${styles.categoryBtn} ${activeCategory === 'all' ? styles.active : ''}`}
+            onClick={() => setActiveCategory('all')}
+          >
+            <MdHelpOutline /> Все категории
+          </button>
+          {faqData.map(cat => (
+            <button 
+              key={cat.id}
+              className={`${styles.categoryBtn} ${activeCategory === cat.id ? styles.active : ''}`}
+              onClick={() => setActiveCategory(cat.id)}
+            >
+              {cat.icon} {cat.category}
+            </button>
+          ))}
+        </aside>
+
+        <div className={styles.faqList}>
+          {filteredFaq.length > 0 ? (
+            filteredFaq.map((category, catIdx) => (
+              <section key={category.id} className={styles.categorySection}>
+                <div className={styles.categoryTitle}>
+                  <span className={styles.icon}>{category.icon}</span>
+                  <h2>{category.category}</h2>
+                </div>
+                <div className={styles.accordionList}>
+                  {category.questions.map((item, qIdx) => {
+                    const uniqueId = `${catIdx}-${qIdx}`;
+                    return (
+                      <AccordionItem 
+                        key={qIdx} 
+                        question={item.q} 
+                        answer={item.a} 
+                        isOpen={openIndex === uniqueId}
+                        onClick={() => setOpenIndex(openIndex === uniqueId ? null : uniqueId)}
+                      />
+                    );
+                  })}
+                </div>
+              </section>
+            ))
+          ) : (
+            <div className={styles.noResults}>
+              <MdSearch className={styles.noResultsIcon} />
+              <h3>Ничего не найдено</h3>
+              <p>Попробуйте изменить запрос</p>
             </div>
-            <div className={styles.accordionList}>
-              {category.questions.map((item, qIdx) => (
-                <AccordionItem key={qIdx} question={item.q} answer={item.a} />
-              ))}
-            </div>
-          </section>
-        ))}
+          )}
+        </div>
       </div>
+
+      <section className={styles.supportCta}>
+        <div className={styles.ctaCard}>
+          <MdChat className={styles.ctaIcon} />
+          <div className={styles.ctaText}>
+            <h3>Не нашли ответ?</h3>
+            <p>Наши специалисты службы поддержки всегда готовы помочь вам 24/7.</p>
+          </div>
+          <button className={styles.contactBtn}>Связаться с нами</button>
+        </div>
+      </section>
     </div>
   );
 };

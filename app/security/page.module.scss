@@ -1,156 +1,432 @@
-@import "../mixins.scss";
+@use "../mixins.scss" as *;
 
-.container {
-  max-width: var(--container-width);
-  margin: 0 auto;
-  padding: 4rem 2rem;
-  min-height: calc(100vh - var(--header-height));
-  color: var(--text-main);
+.main {
+  min-height: 100vh;
+  background: var(--bg-color);
+  overflow-x: hidden;
 }
 
-.header {
+.hero {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  margin-bottom: 4rem;
+  padding: 2rem;
+  padding-top: calc(var(--header-height) + 2rem);
+  position: relative;
+  overflow: hidden;
+  background: var(--primary-dark);
+  color: #fff;
 
-  .mainIcon {
-    font-size: 5rem;
-    color: var(--accent-color);
-    margin-bottom: 1.5rem;
-    filter: drop-shadow(var(--shadow-glow));
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -20%;
+    width: 80vw;
+    height: 80vw;
+    background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, rgba(0,0,0,0) 70%);
+    border-radius: 50%;
+    filter: blur(80px);
+    z-index: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    right: -10%;
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, rgba(24, 59, 94, 0.2) 0%, rgba(0,0,0,0) 70%);
+    border-radius: 50%;
+    filter: blur(60px);
+    z-index: 0;
+  }
+}
+
+.heroContent {
+  max-width: 800px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .iconBadge {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
+
+    .mainIcon {
+      font-size: 2.5rem;
+      color: var(--accent-color);
+    }
   }
 
   h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    background: linear-gradient(to right, #fff, var(--accent-color));
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    margin-bottom: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
   p {
-    font-size: 1.2rem;
-    color: var(--text-secondary);
+    font-size: 1.25rem;
+    color: var(--text-light);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+    opacity: 0.9;
   }
 }
 
-.section {
-  margin-bottom: 5rem;
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
 
-  .sectionHeader {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+  text-align: center;
 
-    .sectionIcon {
-      font-size: 2.5rem;
-      color: var(--accent-color);
-    }
-
-    h2 {
-      font-size: 2rem;
-    }
+  .sectionIcon {
+    font-size: 2.5rem;
+    color: var(--accent-color);
   }
+
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-main);
+  }
+}
+
+.protection {
+  padding: 8rem 0;
+  background: var(--bg-color);
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
+  gap: 2.5rem;
 }
 
 .card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
-  padding: 2rem;
+  background: var(--bg-card);
+  padding: 3rem;
   border-radius: var(--radius-lg);
-  @include hover-lift;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent-color);
+
+    .cardIcon {
+      color: var(--accent-color);
+      transform: scale(1.1);
+    }
+  }
+
+  .cardIcon {
+    font-size: 3rem;
+    color: var(--text-light);
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+  }
+
+  .statusBadge {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    padding: 0.4rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: rgba(0, 212, 255, 0.1);
+    color: var(--accent-color);
+    border: 1px solid rgba(0, 212, 255, 0.2);
+  }
 
   h3 {
+    font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: var(--accent-color);
+    color: var(--text-main);
+    font-weight: 700;
   }
 
   p {
     color: var(--text-secondary);
     line-height: 1.6;
+    font-size: 1rem;
   }
 }
 
-.tipsList {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+.tips {
+  padding: 8rem 0;
+  background: var(--primary-dark);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
 
-  li {
-    background: var(--glass-bg);
-    padding: 1.5rem;
-    border-radius: var(--radius-md);
-    border-left: 4px solid var(--accent-color);
-    backdrop-filter: blur(var(--glass-blur));
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(0, 212, 255, 0.05) 0%, rgba(0,0,0,0) 70%);
+    pointer-events: none;
+  }
 
-    strong {
+  .sectionHeader {
+    h2 {
+      color: #fff;
+    }
+  }
+}
+
+.tipsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.tipCard {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  padding: 2.5rem;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--accent-color);
+    transform: translateX(10px);
+
+    .tipIcon {
+      background: var(--accent-color);
+      color: var(--primary-dark);
+    }
+  }
+
+  .tipHeader {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+
+    .tipIcon {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 212, 255, 0.1);
       color: var(--accent-color);
-      display: block;
-      margin-bottom: 0.5rem;
+      border-radius: 12px;
+      font-size: 1.5rem;
+      transition: all 0.3s ease;
     }
 
-    color: var(--text-secondary);
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #fff;
+    }
+  }
+
+  p {
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.7;
+    font-size: 1rem;
+  }
+}
+
+.emergency {
+  padding: 8rem 0;
+  background: var(--bg-color);
+}
+
+.emergencyContent {
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
+  padding: 5rem;
+  border-radius: var(--radius-lg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4rem;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40%;
+    height: 100%;
+    background: radial-gradient(circle at top right, rgba(0, 212, 255, 0.1), transparent);
+  }
+}
+
+.emergencyText {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+
+  h2 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    font-weight: 800;
+  }
+
+  p {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 500px;
   }
 }
 
 .emergencyGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex: 1;
+  position: relative;
+  z-index: 1;
 }
 
 .emergencyCard {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
   padding: 2rem;
-  border-radius: var(--radius-lg);
-  text-align: center;
-  @include hover-glow;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  transition: all 0.3s ease;
 
-  h3 {
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--accent-color);
+
+    .cardIcon {
+      color: var(--accent-color);
+    }
   }
 
-  .phone {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--accent-color);
-    margin-bottom: 0.5rem;
+  .cardIcon {
+    font-size: 2.5rem;
+    color: rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
   }
 
-  .email {
-    font-size: 1.2rem;
-    color: var(--accent-color);
-    text-decoration: underline;
+  .cardInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    span {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(255, 255, 255, 0.5);
+      font-weight: 600;
+    }
+
+    .phone {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #fff;
+      transition: color 0.3s ease;
+
+      &:hover {
+        color: var(--accent-color);
+      }
+    }
+
+    p {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.4);
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .emergencyContent {
+    flex-direction: column;
+    padding: 3rem;
+    text-align: center;
   }
 
-  p {
-    color: var(--text-secondary);
+  .emergencyText p {
+    margin: 0 auto;
+  }
+
+  .emergencyGrid {
+    width: 100%;
   }
 }
 
 @media (max-width: 768px) {
-  .header {
-    h1 {
-      font-size: 2.2rem;
+  .hero {
+    min-height: 50vh;
+  }
+
+  .sectionHeader {
+    flex-direction: column;
+    gap: 1rem;
+
+    h2 {
+      font-size: 2rem;
     }
   }
 
-  .section {
-    .sectionHeader {
-      h2 {
-        font-size: 1.6rem;
-      }
+  .tipsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .emergencyCard {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+
+    .phone {
+      font-size: 1.5rem;
     }
   }
 }

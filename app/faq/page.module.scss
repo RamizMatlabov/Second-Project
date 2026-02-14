@@ -1,50 +1,154 @@
-@import "../mixins.scss";
+@use "../mixins.scss" as *;
 
 .container {
-  max-width: 800px;
+  max-width: var(--container-width);
   margin: 0 auto;
-  padding: 4rem 2rem;
+  padding: 6rem 2rem;
   min-height: calc(100vh - var(--header-height));
   color: var(--text-main);
 }
 
 .header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 5rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 
   h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    background: linear-gradient(to right, #fff, var(--accent-color));
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: 1.5rem;
+    font-weight: 800;
+    background: linear-gradient(to right, var(--text-main), var(--accent-color));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
   p {
     color: var(--text-secondary);
-    font-size: 1.1rem;
+    font-size: 1.25rem;
+    margin-bottom: 3rem;
   }
 }
 
-.categorySection {
-  margin-bottom: 3rem;
+.searchWrapper {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
 
-  .categoryTitle {
+  .searchIcon {
+    position: absolute;
+    left: 1.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-light);
+    font-size: 1.5rem;
+  }
+
+  .searchInput {
+    width: 100%;
+    padding: 1.2rem 1.2rem 1.2rem 3.5rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 100px;
+    color: var(--text-main);
+    font-size: 1.1rem;
+    backdrop-filter: blur(var(--glass-blur));
+    transition: all var(--transition-normal);
+    box-shadow: var(--shadow-md);
+
+    &:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.1), var(--shadow-lg);
+    }
+  }
+}
+
+.mainContent {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 4rem;
+  align-items: flex-start;
+
+  @media (max-width: 992px) {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  position: sticky;
+  top: calc(var(--header-height) + 2rem);
+
+  @media (max-width: 992px) {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .categoryBtn {
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 1.5rem;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-normal);
+    text-align: left;
+    border: 1px solid transparent;
+
+    svg {
+      font-size: 1.4rem;
+    }
+
+    &.active {
+      background: rgba(0, 212, 255, 0.1);
+      color: var(--accent-color);
+      border-color: rgba(0, 212, 255, 0.2);
+    }
+
+    &:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+    }
+  }
+}
+
+.faqList {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.categorySection {
+  .categoryTitle {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
 
     .icon {
-      font-size: 1.8rem;
+      width: 45px;
+      height: 45px;
+      background: rgba(0, 212, 255, 0.1);
       color: var(--accent-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      font-size: 1.5rem;
     }
 
     h2 {
-      font-size: 1.5rem;
-      font-weight: 600;
+      font-size: 1.75rem;
+      font-weight: 700;
     }
   }
 }
@@ -59,12 +163,13 @@
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur));
   border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  transition: border-color var(--transition-normal);
+  transition: all var(--transition-normal);
 
   &:hover {
     border-color: var(--accent-color);
+    box-shadow: var(--shadow-md);
   }
 }
 
@@ -73,20 +178,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.25rem 1.5rem;
+  padding: 1.5rem 2rem;
   background: transparent;
   color: var(--text-main);
   text-align: left;
-  font-size: 1.1rem;
-  font-weight: 500;
-  transition: color var(--transition-normal);
+  font-size: 1.15rem;
+  font-weight: 600;
+  transition: all var(--transition-normal);
 
   &.open {
     color: var(--accent-color);
+    padding-bottom: 1rem;
   }
 
   svg {
-    font-size: 1.5rem;
+    font-size: 1.75rem;
+    opacity: 0.5;
   }
 }
 
@@ -95,15 +202,86 @@
 }
 
 .answer {
-  padding: 0 1.5rem 1.5rem 1.5rem;
+  padding: 0 2rem 2rem 2rem;
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.8;
+  font-size: 1.05rem;
 }
 
-@media (max-width: 768px) {
-  .header {
-    h1 {
-      font-size: 2rem;
+.noResults {
+  text-align: center;
+  padding: 5rem 2rem;
+  background: var(--glass-bg);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--glass-border);
+
+  .noResultsIcon {
+    font-size: 4rem;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    opacity: 0.3;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    color: var(--text-light);
+  }
+}
+
+.supportCta {
+  margin-top: 8rem;
+
+  .ctaCard {
+    background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+    padding: 3rem;
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow-lg);
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+
+    .ctaIcon {
+      font-size: 4.5rem;
+      color: var(--accent-color);
+      filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.3));
+    }
+
+    .ctaText {
+      flex: 1;
+
+      h3 {
+        font-size: 1.75rem;
+        color: white;
+        margin-bottom: 0.75rem;
+      }
+
+      p {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.5;
+      }
+    }
+
+    .contactBtn {
+      padding: 1rem 2.5rem;
+      background: var(--accent-color);
+      color: white;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      @include hover-scale;
+      @include hover-glow;
     }
   }
 }
