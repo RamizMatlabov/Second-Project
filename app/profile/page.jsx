@@ -3,7 +3,17 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { FaUserCircle, FaEnvelope, FaMobileAlt, FaShieldAlt, FaSignOutAlt } from 'react-icons/fa';
+import {
+  FaUserCircle,
+  FaEnvelope,
+  FaMobileAlt,
+  FaShieldAlt,
+  FaSignOutAlt,
+  FaUserEdit,
+  FaPhoneAlt,
+  FaMapMarkerAlt,
+  FaInfoCircle
+} from 'react-icons/fa';
 import styles from './page.module.scss';
 import { useAuth } from '../context/AuthContext';
 import { doc, getDoc } from 'firebase/firestore';
@@ -98,7 +108,8 @@ export default function ProfilePage() {
               className={styles.editButton}
               onClick={() => router.push('/profile/edit')}
             >
-              Редактировать профиль
+              <FaUserEdit />
+              <span>Редактировать профиль</span>
             </button>
             <button className={styles.logoutButton} onClick={logout}>
               <FaSignOutAlt />
@@ -122,7 +133,9 @@ export default function ProfilePage() {
             </div>
             <div className={styles.cardContent}>
               <div className={styles.infoRow}>
-                <span className={styles.infoLabel}>Имя</span>
+                <span className={styles.infoLabel}>
+                  <FaUserCircle /> Имя
+                </span>
                 <span className={styles.infoValue}>{displayName}</span>
               </div>
               <div className={styles.infoRow}>
@@ -138,15 +151,21 @@ export default function ProfilePage() {
                 <span className={styles.infoValue}>Подключено к вашему аккаунту</span>
               </div>
               <div className={styles.infoRow}>
-                <span className={styles.infoLabel}>Телефон</span>
+                <span className={styles.infoLabel}>
+                  <FaPhoneAlt /> Телефон
+                </span>
                 <span className={styles.infoValue}>{phone}</span>
               </div>
               <div className={styles.infoRow}>
-                <span className={styles.infoLabel}>Адрес</span>
+                <span className={styles.infoLabel}>
+                  <FaMapMarkerAlt /> Адрес
+                </span>
                 <span className={styles.infoValue}>{address}</span>
               </div>
               <div className={styles.infoRow}>
-                <span className={styles.infoLabel}>О себе</span>
+                <span className={styles.infoLabel}>
+                  <FaInfoCircle /> О себе
+                </span>
                 <span className={styles.infoValue}>{bio}</span>
               </div>
             </div>

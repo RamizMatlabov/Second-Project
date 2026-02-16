@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { FaArrowLeft, FaPhoneAlt, FaMapMarkerAlt, FaInfoCircle } from 'react-icons/fa';
 import { db } from '../../firebase/config';
 import { useAuth } from '../../context/AuthContext';
 import styles from './page.module.scss';
@@ -132,7 +133,8 @@ export default function EditProfilePage() {
             className={styles.backButton}
             onClick={() => router.push('/profile')}
           >
-            Назад в профиль
+            <FaArrowLeft />
+            <span>Назад в профиль</span>
           </button>
         </motion.section>
 
@@ -146,7 +148,10 @@ export default function EditProfilePage() {
           {error && <div className={styles.error}>{error}</div>}
 
           <div className={styles.fieldGroup}>
-            <label htmlFor="phone">Номер телефона</label>
+            <label htmlFor="phone">
+              <FaPhoneAlt />
+              <span>Номер телефона</span>
+            </label>
             <input
               id="phone"
               name="phone"
@@ -158,7 +163,10 @@ export default function EditProfilePage() {
           </div>
 
           <div className={styles.fieldGroup}>
-            <label htmlFor="address">Адрес</label>
+            <label htmlFor="address">
+              <FaMapMarkerAlt />
+              <span>Адрес</span>
+            </label>
             <input
               id="address"
               name="address"
@@ -170,7 +178,10 @@ export default function EditProfilePage() {
           </div>
 
           <div className={styles.fieldGroup}>
-            <label htmlFor="bio">О себе / Bio</label>
+            <label htmlFor="bio">
+              <FaInfoCircle />
+              <span>О себе / Bio</span>
+            </label>
             <textarea
               id="bio"
               name="bio"

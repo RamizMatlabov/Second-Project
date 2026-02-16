@@ -32,6 +32,9 @@
 }
 
 .backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.7rem 1.4rem;
   border-radius: 999px;
   border: 1px solid rgba(148, 163, 184, 0.4);
@@ -61,9 +64,17 @@
   gap: 0.6rem;
 
   label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
     font-size: 0.9rem;
     font-weight: 500;
     color: var(--text-secondary);
+
+    svg {
+      font-size: 0.95rem;
+      color: var(--accent-color);
+    }
   }
 
   input,
@@ -150,4 +161,3 @@
     }
   }
 }
-
