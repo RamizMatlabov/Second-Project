@@ -39,8 +39,8 @@ export default function Home() {
               SafePoint Bank объединяет передовые технологии и премиальный сервис, чтобы вы могли управлять своими финансами с максимальным комфортом и безопасностью.
             </motion.p>
             <motion.div className={styles.heroButtons} variants={fadeInUp}>
-              <Link href={user ? "/dashboard" : "/auth"} className={styles.primaryButton}>
-                {user ? "В личный кабинет" : "Открыть счет"}
+              <Link href="/auth" className={styles.primaryButton}>
+                Открыть счет
               </Link>
               <button className={styles.secondaryButton}>Как это работает</button>
             </motion.div>
@@ -170,8 +170,8 @@ export default function Home() {
             Готовы к новому уровню?
           </motion.h2>
           <p>Присоединяйтесь к SafePoint Bank и откройте для себя премиальное обслуживание уже сегодня.</p>
-          <Link href={user ? "/dashboard" : "/auth"} className={styles.ctaButton}>
-            {user ? "Перейти в кабинет" : "Стать клиентом"}
+          <Link href="/auth" className={styles.ctaButton}>
+            Стать клиентом
           </Link>
         </div>
       </section>

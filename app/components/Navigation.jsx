@@ -69,15 +69,9 @@ export default function Navigation() {
                   {link.label}
                 </Link>
               ))}
-              {user ? (
-                <Link href="/dashboard" className={styles.authButton}>
-                  Личный кабинет
-                </Link>
-              ) : (
-                <Link href="/auth" className={styles.authButton}>
-                  Войти
-                </Link>
-              )}
+              <Link href="/auth" className={styles.authButton}>
+                {user ? 'Мой профиль' : 'Войти'}
+              </Link>
             </motion.div>
           )}
         </AnimatePresence>
