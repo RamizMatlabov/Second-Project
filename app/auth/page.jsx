@@ -43,7 +43,7 @@ export default function Auth() {
         await signInWithEmailAndPassword(auth, formData.email, formData.password);
         setSuccessMessage('Login successful! Redirecting...');
         setTimeout(() => {
-          router.push('/dashboard');
+          router.push('/profile');
         }, 1000);
       }
     } catch (error) {
