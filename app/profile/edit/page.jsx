@@ -9,6 +9,54 @@ import { db } from '../../firebase/config';
 import { useAuth } from '../../context/AuthContext';
 import styles from './page.module.scss';
 
+const formatUzPhone = (value) => {
+  const digits = String(value || '').replace(/\D/g, '');
+  let local = digits;
+
+  if (local.startsWith('998')) {
+    local = local.slice(3);
+  }
+
+  local = local.slice(0, 9);
+
+  if (!local.length) {
+    return '';
+  }
+
+  let result = '+998';
+
+  result += ' (' + local.slice(0, 2);
+
+  if (local.length >= 2) {
+    result += ')';
+  }
+
+  if (local.length > 2) {
+    result += ' ' + local.slice(2, 5);
+  }
+
+  if (local.length > 5) {
+    result += '-' + local.slice(5, 7);
+  }
+
+  if (local.length > 7) {
+    result += '-' + local.slice(7, 9);
+  }
+
+  return result;
+};
+
+const getUzLocalDigitsCount = (value) => {
+  const digits = String(value || '').replace(/\D/g, '');
+  let local = digits;
+
+  if (local.startsWith('998')) {
+    local = local.slice(3);
+  }
+
+  return local.length;
+};
+
 export default function EditProfilePage() {
   const { user, loading } = useAuth();
   const router = useRouter();
@@ -19,7 +67,7 @@ export default function EditProfilePage() {
         if (raw) {
           const cached = JSON.parse(raw);
           return {
-            phone: cached.phone || '',
+            phone: formatUzPhone(cached.phone || ''),
             address: cached.address || '',
             bio: cached.bio || ''
           };
@@ -30,7 +78,7 @@ export default function EditProfilePage() {
     }
 
     return {
-      phone: '',
+      phone: formatUzPhone(''),
       address: '',
       bio: ''
     };
@@ -57,7 +105,7 @@ export default function EditProfilePage() {
         if (snap.exists()) {
           const data = snap.data();
           setFormData({
-            phone: data.phone || '',
+            phone: formatUzPhone(data.phone || ''),
             address: data.address || '',
             bio: data.bio || ''
           });
@@ -86,14 +134,40 @@ export default function EditProfilePage() {
     }));
   };
 
+  const handlePhoneChange = (e) => {
+    const raw = e.target.value;
+    const digits = raw.replace(/\D/g, '');
+    let local = digits;
+
+    if (local.startsWith('998')) {
+      local = local.slice(3);
+    }
+
+    local = local.slice(0, 9);
+
+    const formatted = formatUzPhone(local);
+
+    setFormData((prev) => ({
+      ...prev,
+      phone: formatted
+    }));
+
+    setFieldErrors((prev) => ({
+      ...prev,
+      phone: ''
+    }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setError('');
 
     const errors = {};
 
-    if (formData.phone.trim() === '') {
-      errors.phone = 'Заполните это поле';
+    const phoneLocalDigits = getUzLocalDigitsCount(formData.phone);
+
+    if (phoneLocalDigits !== 9) {
+      errors.phone = 'Введите номер в формате +998 (XX) XXX-XX-XX';
     }
 
     if (formData.address.trim() === '') {
@@ -204,9 +278,11 @@ export default function EditProfilePage() {
               id="phone"
               name="phone"
               type="tel"
-              placeholder="+998 XX XXX XX XX"
+              placeholder="+998 (XX) XXX-XX-XX"
               value={formData.phone}
-              onChange={handleChange}
+              onChange={handlePhoneChange}
+              inputMode="numeric"
+              autoComplete="tel"
             />
             {fieldErrors.phone && <p className={styles.fieldError}>{fieldErrors.phone}</p>}
           </div>
