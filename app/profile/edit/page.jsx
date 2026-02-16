@@ -37,6 +37,11 @@ export default function EditProfilePage() {
   });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const [fieldErrors, setFieldErrors] = useState({
+    phone: '',
+    address: '',
+    bio: ''
+  });
 
   useEffect(() => {
     if (!loading && !user) {
@@ -75,31 +80,74 @@ export default function EditProfilePage() {
       ...prev,
       [name]: value
     }));
+    setFieldErrors((prev) => ({
+      ...prev,
+      [name]: ''
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setError('');
+
+    const errors = {};
+
+    if (formData.phone.trim() === '') {
+      errors.phone = 'Заполните это поле';
+    }
+
+    if (formData.address.trim() === '') {
+      errors.address = 'Заполните это поле';
+    }
+
+    if (formData.bio.trim() === '') {
+      errors.bio = 'Заполните это поле';
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors({
+        phone: errors.phone || '',
+        address: errors.address || '',
+        bio: errors.bio || ''
+      });
+      return;
+    }
+
+    setFieldErrors({
+      phone: '',
+      address: '',
+      bio: ''
+    });
+
     setSaving(true);
 
     const ref = doc(db, 'users', user.uid);
 
-    const payload = {
-      phone: formData.phone,
-      address: formData.address,
-      bio: formData.bio,
-      updatedAt: new Date()
-    };
-
     try {
       if (typeof window !== 'undefined') {
-        window.localStorage.setItem('safepoint_profile_cache', JSON.stringify(payload));
+        window.localStorage.setItem(
+          'safepoint_profile_cache',
+          JSON.stringify({
+            phone: formData.phone,
+            address: formData.address,
+            bio: formData.bio
+          })
+        );
       }
     } catch (e) {
       console.error('Failed to write profile cache', e);
     }
 
-    setDoc(ref, payload, { merge: true })
+    setDoc(
+      ref,
+      {
+        phone: formData.phone,
+        address: formData.address,
+        bio: formData.bio,
+        updatedAt: new Date()
+      },
+      { merge: true }
+    )
       .catch((e) => {
         console.error('Failed to save profile', e);
         setError('Не удалось сохранить изменения. Попробуйте еще раз.');
@@ -143,7 +191,11 @@ export default function EditProfilePage() {
         >
           {error && <div className={styles.error}>{error}</div>}
 
-          <div className={styles.fieldGroup}>
+          <div
+            className={`${styles.fieldGroup} ${
+              fieldErrors.phone ? styles.fieldGroupError : ''
+            }`}
+          >
             <label htmlFor="phone">
               <FaPhoneAlt />
               <span>Номер телефона</span>
@@ -156,9 +208,14 @@ export default function EditProfilePage() {
               value={formData.phone}
               onChange={handleChange}
             />
+            {fieldErrors.phone && <p className={styles.fieldError}>{fieldErrors.phone}</p>}
           </div>
 
-          <div className={styles.fieldGroup}>
+          <div
+            className={`${styles.fieldGroup} ${
+              fieldErrors.address ? styles.fieldGroupError : ''
+            }`}
+          >
             <label htmlFor="address">
               <FaMapMarkerAlt />
               <span>Адрес</span>
@@ -171,9 +228,14 @@ export default function EditProfilePage() {
               value={formData.address}
               onChange={handleChange}
             />
+            {fieldErrors.address && <p className={styles.fieldError}>{fieldErrors.address}</p>}
           </div>
 
-          <div className={styles.fieldGroup}>
+          <div
+            className={`${styles.fieldGroup} ${
+              fieldErrors.bio ? styles.fieldGroupError : ''
+            }`}
+          >
             <label htmlFor="bio">
               <FaInfoCircle />
               <span>О себе / Bio</span>
@@ -186,6 +248,7 @@ export default function EditProfilePage() {
               value={formData.bio}
               onChange={handleChange}
             />
+            {fieldErrors.bio && <p className={styles.fieldError}>{fieldErrors.bio}</p>}
           </div>
 
           <div className={styles.actions}>

@@ -87,6 +87,10 @@
     color: var(--text-main);
     font-size: 0.95rem;
     resize: vertical;
+    transition:
+      border-color 0.15s ease,
+      box-shadow 0.15s ease,
+      background-color 0.15s ease;
 
     &:focus {
       outline: none;
@@ -97,6 +101,47 @@
     &::placeholder {
       color: rgba(148, 163, 184, 0.8);
     }
+  }
+}
+
+.fieldError {
+  margin-top: 0.35rem;
+  padding: 0.3rem 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fee2e2;
+
+  &::before {
+    content: '!';
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 999px;
+    background: rgba(248, 113, 113, 0.9);
+    color: #0b1120;
+    font-size: 0.8rem;
+  }
+}
+
+.fieldGroupError {
+  label {
+    color: #fecaca;
+
+    svg {
+      color: rgba(248, 113, 113, 0.95);
+    }
+  }
+
+  input,
+  textarea {
+    border-color: rgba(248, 113, 113, 0.95);
+    box-shadow: 0 0 0 1px rgba(248, 113, 113, 0.7);
+    background: rgba(127, 29, 29, 0.35);
   }
 }
 
