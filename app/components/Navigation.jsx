@@ -69,7 +69,7 @@ export default function Navigation() {
                   {link.label}
                 </Link>
               ))}
-              <Link href="/auth" className={styles.authButton}>
+              <Link href={user ? '/profile' : '/auth'} className={styles.authButton}>
                 {user ? 'Мой профиль' : 'Войти'}
               </Link>
             </motion.div>
