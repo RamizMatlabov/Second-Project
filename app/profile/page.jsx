@@ -1,15 +1,40 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { FaUserCircle, FaEnvelope, FaMobileAlt, FaShieldAlt, FaSignOutAlt } from 'react-icons/fa';
 import styles from './page.module.scss';
 import { useAuth } from '../context/AuthContext';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '../firebase/config';
 
 export default function ProfilePage() {
   const { user, loading, logout } = useAuth();
   const router = useRouter();
+  const [profileData, setProfileData] = useState(() => {
+    try {
+      if (typeof window !== 'undefined') {
+        const raw = window.localStorage.getItem('safepoint_profile_cache');
+        if (raw) {
+          const cached = JSON.parse(raw);
+          return {
+            phone: cached.phone || '',
+            address: cached.address || '',
+            bio: cached.bio || ''
+          };
+        }
+      }
+    } catch (e) {
+      console.error('Failed to read profile cache', e);
+    }
+
+    return {
+      phone: '',
+      address: '',
+      bio: ''
+    };
+  });
 
   useEffect(() => {
     if (!loading && !user) {
@@ -17,12 +42,38 @@ export default function ProfilePage() {
     }
   }, [loading, user, router]);
 
+  useEffect(() => {
+    if (!user) return;
+
+    const fetchDetails = async () => {
+      try {
+        const ref = doc(db, 'users', user.uid);
+        const snap = await getDoc(ref);
+        if (snap.exists()) {
+          const data = snap.data();
+          setProfileData({
+            phone: data.phone || '',
+            address: data.address || '',
+            bio: data.bio || ''
+          });
+        }
+      } catch (e) {
+        console.error('Failed to load profile details', e);
+      }
+    };
+
+    fetchDetails();
+  }, [user]);
+
   if (loading || !user) {
     return null;
   }
 
   const displayName = user.displayName || 'Клиент SafePoint';
   const email = user.email || 'Не указан';
+  const phone = profileData.phone || 'Не указан';
+  const address = profileData.address || 'Не указан';
+  const bio = profileData.bio || 'Не указано';
 
   return (
     <main className={styles.main}>
@@ -43,6 +94,12 @@ export default function ProfilePage() {
             </div>
           </div>
           <div className={styles.headerRight}>
+            <button
+              className={styles.editButton}
+              onClick={() => router.push('/profile/edit')}
+            >
+              Редактировать профиль
+            </button>
             <button className={styles.logoutButton} onClick={logout}>
               <FaSignOutAlt />
               <span>Выйти из аккаунта</span>
@@ -80,6 +137,18 @@ export default function ProfilePage() {
                 </span>
                 <span className={styles.infoValue}>Подключено к вашему аккаунту</span>
               </div>
+              <div className={styles.infoRow}>
+                <span className={styles.infoLabel}>Телефон</span>
+                <span className={styles.infoValue}>{phone}</span>
+              </div>
+              <div className={styles.infoRow}>
+                <span className={styles.infoLabel}>Адрес</span>
+                <span className={styles.infoValue}>{address}</span>
+              </div>
+              <div className={styles.infoRow}>
+                <span className={styles.infoLabel}>О себе</span>
+                <span className={styles.infoValue}>{bio}</span>
+              </div>
             </div>
           </motion.div>
 
@@ -113,4 +182,3 @@ export default function ProfilePage() {
     </main>
   );
 }
-
