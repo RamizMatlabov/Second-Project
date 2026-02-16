@@ -181,6 +181,17 @@
   text-align: right;
 }
 
+.successBanner {
+  margin-bottom: 1.25rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  background: rgba(22, 163, 74, 0.15);
+  border: 1px solid rgba(22, 163, 74, 0.5);
+  color: #bbf7d0;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
 .securityList {
   list-style: disc;
   padding-left: 1.25rem;

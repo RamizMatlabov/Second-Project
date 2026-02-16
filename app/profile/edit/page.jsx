@@ -99,11 +99,7 @@ export default function EditProfilePage() {
       console.error('Failed to write profile cache', e);
     }
 
-    setDoc(
-      ref,
-      payload,
-      { merge: true }
-    )
+    setDoc(ref, payload, { merge: true })
       .catch((e) => {
         console.error('Failed to save profile', e);
         setError('Не удалось сохранить изменения. Попробуйте еще раз.');
@@ -112,7 +108,7 @@ export default function EditProfilePage() {
         setSaving(false);
       });
 
-    router.push('/profile');
+    router.push('/profile?updated=1');
   };
 
   return (

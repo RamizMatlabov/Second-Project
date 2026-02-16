@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import {
   FaUserCircle,
@@ -22,6 +22,8 @@ import { db } from '../firebase/config';
 export default function ProfilePage() {
   const { user, loading, logout } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const [showSuccessBanner, setShowSuccessBanner] = useState(false);
   const [profileData, setProfileData] = useState(() => {
     try {
       if (typeof window !== 'undefined') {
@@ -75,6 +77,22 @@ export default function ProfilePage() {
     fetchDetails();
   }, [user]);
 
+  useEffect(() => {
+    const updated = searchParams.get('updated');
+    if (updated === '1') {
+      setShowSuccessBanner(true);
+      const timeout = setTimeout(() => {
+        setShowSuccessBanner(false);
+        if (typeof window !== 'undefined') {
+          const url = new URL(window.location.href);
+          url.searchParams.delete('updated');
+          router.replace(url.pathname + url.search);
+        }
+      }, 3000);
+      return () => clearTimeout(timeout);
+    }
+  }, [searchParams, router]);
+
   if (loading || !user) {
     return null;
   }
@@ -88,6 +106,11 @@ export default function ProfilePage() {
   return (
     <main className={styles.main}>
       <div className={styles.container}>
+        {showSuccessBanner && (
+          <div className={styles.successBanner}>
+            <span>Профиль успешно обновлён</span>
+          </div>
+        )}
         <motion.section
           className={styles.header}
           initial={{ opacity: 0, y: 20 }}
