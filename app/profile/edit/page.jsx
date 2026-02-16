@@ -11,10 +11,28 @@ import styles from './page.module.scss';
 export default function EditProfilePage() {
   const { user, loading } = useAuth();
   const router = useRouter();
-  const [formData, setFormData] = useState({
-    phone: '',
-    address: '',
-    bio: ''
+  const [formData, setFormData] = useState(() => {
+    try {
+      if (typeof window !== 'undefined') {
+        const raw = window.localStorage.getItem('safepoint_profile_cache');
+        if (raw) {
+          const cached = JSON.parse(raw);
+          return {
+            phone: cached.phone || '',
+            address: cached.address || '',
+            bio: cached.bio || ''
+          };
+        }
+      }
+    } catch (e) {
+      console.error('Failed to read profile cache', e);
+    }
+
+    return {
+      phone: '',
+      address: '',
+      bio: ''
+    };
   });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
