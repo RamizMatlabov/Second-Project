@@ -47,12 +47,11 @@ export default function Auth() {
         }, 1000);
       }
     } catch (error) {
-      console.error(error);
-      let msg = error.message;
-      if (error.code === 'auth/email-already-in-use') msg = 'Email is already in use.';
-      if (error.code === 'auth/invalid-email') msg = 'Invalid email address.';
-      if (error.code === 'auth/weak-password') msg = 'Password should be at least 6 characters.';
-      if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') msg = 'Invalid email or password.';
+      let msg = 'Произошла ошибка. Попробуйте еще раз.';
+      if (error.code === 'auth/email-already-in-use') msg = 'Этот email уже используется.';
+      if (error.code === 'auth/invalid-email') msg = 'Некорректный email.';
+      if (error.code === 'auth/weak-password') msg = 'Пароль должен быть не короче 6 символов.';
+      if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') msg = 'Неверный email или пароль.';
       setError(msg);
     } finally {
       setLoading(false);
