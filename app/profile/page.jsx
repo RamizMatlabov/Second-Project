@@ -59,6 +59,10 @@ export default function ProfilePage() {
 
     const fetchDetails = async () => {
       try {
+        if (typeof navigator !== 'undefined' && !navigator.onLine) {
+          return;
+        }
+
         const ref = doc(db, 'users', user.uid);
         const snap = await getDoc(ref);
         if (snap.exists()) {
