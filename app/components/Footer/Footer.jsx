@@ -25,7 +25,7 @@ const Footer = () => {
           
           <div className={styles.section}>
             <h4>Навигация</h4>
-            <ul className={styles.links}>
+            <ul className={`${styles.links} ${styles.navLinks}`}>
               <li><Link href="/">Главная</Link></li>
               <li><Link href="/about">О нас</Link></li>
               <li><Link href="/cards">Карты</Link></li>
