@@ -25,6 +25,10 @@ export default function Navigation() {
   const navLinks = [
     { href: '/', label: 'Главная' },
     { href: '/about', label: 'О нас' },
+    { href: '/cards', label: 'Карты' },
+    { href: '/deposits', label: 'Вклады' },
+    { href: '/loans', label: 'Кредиты' },
+    { href: '/promotions', label: 'Акции' },
     { href: '/contacts', label: 'Контакты' },
   ];
 

@@ -28,6 +28,10 @@ const Footer = () => {
             <ul className={styles.links}>
               <li><Link href="/">Главная</Link></li>
               <li><Link href="/about">О нас</Link></li>
+              <li><Link href="/cards">Карты</Link></li>
+              <li><Link href="/deposits">Вклады</Link></li>
+              <li><Link href="/loans">Кредиты</Link></li>
+              <li><Link href="/promotions">Акции</Link></li>
               <li><Link href="/contacts">Контакты</Link></li>
             </ul>
           </div>
