@@ -35,7 +35,6 @@ export default function Navigation() {
   return (
     <nav className={`${styles.nav} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.container}>
-        {/* Logo */}
         <Link href="/" className={styles.logo}>
           <Image
             src="/logo.png"
@@ -47,13 +46,6 @@ export default function Navigation() {
           />
           <span>SafePoint Bank</span>
         </Link>
-
-        <button 
-          className={styles.mobileMenuButton}
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          <span className={styles.menuIcon}></span>
-        </button>
 
         <AnimatePresence>
           {(isMobileMenuOpen || !isMobileMenuOpen) && (
@@ -73,12 +65,22 @@ export default function Navigation() {
                   {link.label}
                 </Link>
               ))}
-              <Link href={user ? '/profile' : '/auth'} className={styles.authButton}>
-                {user ? 'Мой профиль' : 'Войти'}
-              </Link>
             </motion.div>
           )}
         </AnimatePresence>
+
+        <div className={styles.rightSection}>
+          <Link href={user ? '/profile' : '/auth'} className={styles.authButton}>
+            {user ? 'Мой профиль' : 'Войти'}
+          </Link>
+
+          <button 
+            className={styles.mobileMenuButton}
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            <span className={styles.menuIcon}></span>
+          </button>
+        </div>
       </div>
     </nav>
   );

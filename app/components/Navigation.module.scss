@@ -24,12 +24,12 @@
 }
 
 .container {
-  max-width: var(--container-width);
   margin: 0 auto;
   padding: 0 2rem;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
+  column-gap: 2rem;
 }
 
 .logo {
@@ -59,6 +59,8 @@
   display: flex;
   align-items: center;
   gap: 2.5rem;
+  justify-content: center;
+  justify-self: center;
 }
 
 .navLink {
@@ -96,6 +98,13 @@
   }
 }
 
+.rightSection {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
 .mobileMenuButton {
   display: none;
   background: none;
@@ -128,6 +137,12 @@
 }
 
 @media (max-width: 768px) {
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   .navLinks {
     position: fixed;
     top: 0;
