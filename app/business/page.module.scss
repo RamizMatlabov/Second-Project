@@ -175,7 +175,7 @@
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
   backdrop-filter: blur(var(--glass-blur));
-  transition: all var(--transition-normal);
+  transition: all 0.1s ease;
 
   .iconWrapper {
     width: 60px;
@@ -233,7 +233,7 @@
   backdrop-filter: blur(var(--glass-blur));
   display: flex;
   flex-direction: column;
-  transition: all var(--transition-normal);
+  transition: all 0.1s ease;
 
   &.recommended {
     border-color: var(--accent-color);
