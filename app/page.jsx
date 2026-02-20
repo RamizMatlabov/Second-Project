@@ -159,22 +159,24 @@ export default function Home() {
         </div>
       </section>
 
-      <section className={styles.cta}>
-        <div className={styles.ctaContent}>
-          <motion.h2
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            Готовы к новому уровню?
-          </motion.h2>
-          <p>Присоединяйтесь к SafePoint Bank и откройте для себя премиальное обслуживание уже сегодня.</p>
-          <Link href="/auth" className={styles.ctaButton}>
-            Стать клиентом
-          </Link>
-        </div>
-      </section>
+      {!user && (
+        <section className={styles.cta}>
+          <div className={styles.ctaContent}>
+            <motion.h2
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              Готовы к новому уровню?
+            </motion.h2>
+            <p>Присоединяйтесь к SafePoint Bank и откройте для себя премиальное обслуживание уже сегодня.</p>
+            <Link href="/auth" className={styles.ctaButton}>
+              Стать клиентом
+            </Link>
+          </div>
+        </section>
+      )}
     </main>
   );
 }
