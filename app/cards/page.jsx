@@ -117,22 +117,68 @@ export default function CardsPage() {
                 variants={fadeInUp}
                 whileHover={{ y: -10 }}
               >
-                <div className={styles.cardIcon}>
-                  <FaCreditCard />
+                <div className={styles.cardVisual}>
+                  <div className={styles.cardMock}>
+                    <div className={styles.cardMockHeader}>
+                      <span className={styles.cardMockBrand}>SafePoint</span>
+                      <FaCreditCard className={styles.cardMockIcon} />
+                    </div>
+                    <div className={styles.cardMockDetails}>
+                      <span className={styles.cardMockBadge}>{card.badge}</span>
+                      <span className={styles.cardMockNumber}>•••• 4829</span>
+                    </div>
+                    <div className={styles.cardMockFooter}>
+                      <span className={styles.cardMockLabel}>Банковская карта</span>
+                      <span className={styles.cardMockType}>{card.name}</span>
+                    </div>
+                  </div>
                 </div>
-                <div className={styles.cardHeader}>
-                  <span className={styles.badge}>{card.badge}</span>
-                  <h3>{card.name}</h3>
+
+                <div className={styles.cardContent}>
+                  <div className={styles.cardHeader}>
+                    <div>
+                      <span className={styles.badge}>{card.badge}</span>
+                      <h3>{card.name}</h3>
+                    </div>
+                    <div className={styles.cardIcon}>
+                      <FaCreditCard />
+                    </div>
+                  </div>
+
+                  <p className={styles.cardDescription}>{card.description}</p>
+
+                  <ul className={styles.cardBenefits}>
+                    {card.benefits.map((b) => (
+                      <li key={b}>{b}</li>
+                    ))}
+                  </ul>
+
+                  <div className={styles.cardFooter}>
+                    <div className={styles.cardMeta}>
+                      <div className={styles.cardMetaItem}>
+                        <span className={styles.cardMetaLabel}>Оформление</span>
+                        <span className={styles.cardMetaValue}>бесплатно</span>
+                      </div>
+                      <div className={styles.cardMetaItem}>
+                        <span className={styles.cardMetaLabel}>Обслуживание</span>
+                        <span className={styles.cardMetaValue}>от 0 ₽ в месяц</span>
+                      </div>
+                      <div className={styles.cardMetaItem}>
+                        <span className={styles.cardMetaLabel}>Комиссии</span>
+                        <span className={styles.cardMetaValue}>прозрачные условия</span>
+                      </div>
+                    </div>
+
+                    <div className={styles.cardActions}>
+                      <button className={styles.primaryButton}>
+                        Оформить карту
+                      </button>
+                      <button className={styles.secondaryButton}>
+                        Подробнее
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <p className={styles.cardDescription}>{card.description}</p>
-                <ul className={styles.cardBenefits}>
-                  {card.benefits.map((b) => (
-                    <li key={b}>{b}</li>
-                  ))}
-                </ul>
-                <button className={styles.primaryButton}>
-                  Оформить карту
-                </button>
               </motion.article>
             ))}
           </motion.div>

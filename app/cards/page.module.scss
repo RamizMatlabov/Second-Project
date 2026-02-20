@@ -102,25 +102,108 @@
 
 .cardGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 2.5rem;
 }
 
 .cardProduct {
   background: var(--bg-card);
   border-radius: var(--radius-lg);
-  padding: 2.5rem 2rem;
+  padding: 2.5rem 2.4rem;
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--border-color);
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
+  display: grid;
+  grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
+  align-items: stretch;
+  gap: 2.5rem;
   transition: all 0.1s ease;
 
   &:hover {
     border-color: var(--accent-color);
     box-shadow: 0 24px 48px rgba(0, 0, 0, 0.25);
   }
+}
+
+.cardVisual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardMock {
+  width: 100%;
+  max-width: 320px;
+  aspect-ratio: 16 / 10;
+  border-radius: 24px;
+  padding: 1.4rem 1.6rem;
+  background: linear-gradient(135deg, var(--primary-dark), var(--accent-color));
+  box-shadow: var(--shadow-lg);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.cardMockHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.cardMockBrand {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.cardMockIcon {
+  font-size: 1.6rem;
+}
+
+.cardMockDetails {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.1rem;
+  font-size: 0.8rem;
+}
+
+.cardMockBadge {
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.18);
+  font-weight: 600;
+}
+
+.cardMockNumber {
+  font-family: monospace;
+  font-size: 1rem;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.9rem;
+}
+
+.cardMockFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-size: 0.75rem;
+  opacity: 0.92;
+}
+
+.cardMockLabel {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.cardMockType {
+  font-weight: 600;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .cardIcon {
@@ -137,8 +220,9 @@
 
 .cardHeader {
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.25rem;
 
   h3 {
     font-size: 1.5rem;
@@ -163,8 +247,9 @@
 .cardDescription {
   color: var(--text-secondary);
   font-size: 0.98rem;
-  line-height: 1.6;
+  font-size: 1rem;
 }
+
 
 .cardBenefits {
   list-style: none;
@@ -193,8 +278,47 @@
   }
 }
 
-.primaryButton {
+.cardFooter {
   margin-top: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+}
+
+.cardMeta {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4rem;
+  font-size: 0.85rem;
+}
+
+.cardMetaItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.cardMetaLabel {
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+}
+
+.cardMetaValue {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+.cardActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.primaryButton {
   align-self: flex-start;
   padding: 0.95rem 2.2rem;
   background: var(--accent-color);
@@ -206,6 +330,23 @@
   cursor: pointer;
   @include hover-lift;
   @include hover-glow;
+}
+
+.secondaryButton {
+  padding: 0.95rem 2.2rem;
+  background: transparent;
+  color: var(--text-main);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  font-weight: 600;
+  font-size: 0.98rem;
+  cursor: pointer;
+  @include hover-scale;
+
+  &:hover {
+    border-color: var(--accent-color);
+    background: var(--bg-card);
+  }
 }
 
 .features {
@@ -256,6 +397,40 @@
   color: var(--accent-color);
   font-size: 1.6rem;
   margin-bottom: 1.25rem;
+}
+
+@media (max-width: 960px) {
+  .cardProduct {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cardVisual {
+    justify-content: flex-start;
+  }
+
+  .cardMeta {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .cardProduct {
+    padding: 2rem 1.5rem;
+  }
+
+  .cardMeta {
+    grid-template-columns: 1fr;
+  }
+
+  .cardFooter {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cardActions {
+    width: 100%;
+    justify-content: flex-start;
+  }
 }
 
 @media (max-width: 768px) {
