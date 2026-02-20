@@ -123,7 +123,7 @@
   position: relative;
   z-index: 1;
   border: 1px solid var(--border-color);
-  transition: all 0.3s ease;
+  transition: all 0.1s ease;
   margin-top: 2rem;
 
   &:hover {
@@ -200,7 +200,7 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-lg);
   text-align: center;
-  transition: all 0.3s ease;
+  transition: all 0.1s ease;
 
   &:hover {
     background: rgba(255, 255, 255, 0.06);
@@ -263,7 +263,7 @@
   box-shadow: var(--shadow-sm);
   text-align: center;
   border: 1px solid var(--border-color);
-  transition: all 0.3s ease;
+  transition: all 0.1s ease;
 
   &:hover {
     transform: translateY(-5px);

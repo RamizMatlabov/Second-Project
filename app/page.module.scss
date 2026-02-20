@@ -260,7 +260,7 @@
   background: var(--bg-color);
   padding: 3rem 2rem;
   border-radius: var(--radius-md);
-  transition: all 0.3s ease;
+  transition: all 0.1s ease;
   border: 1px solid transparent;
 
   &:hover {
@@ -279,7 +279,7 @@
   font-size: 1.75rem;
   color: var(--accent-color);
   margin-bottom: 1.5rem;
-  transition: all 0.3s ease;
+  transition: all 0.1s ease;
 }
 
 .featureCard h3 {

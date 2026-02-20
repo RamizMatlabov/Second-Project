@@ -140,7 +140,7 @@
   flex-direction: column;
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-sm);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.1s ease;
 
   &:hover {
     transform: translateY(-10px);
@@ -157,7 +157,7 @@
     font-size: 3rem;
     color: var(--text-light);
     margin-bottom: 2rem;
-    transition: all 0.3s ease;
+    transition: all 0.1s ease;
   }
 
   .statusBadge {
@@ -227,7 +227,7 @@
   padding: 2.5rem;
   border-radius: var(--radius-md);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: all 0.3s ease;
+  transition: all 0.1s ease;
 
   &:hover {
     background: rgba(255, 255, 255, 0.05);
@@ -256,7 +256,7 @@
       color: var(--accent-color);
       border-radius: 12px;
       font-size: 1.5rem;
-      transition: all 0.3s ease;
+      transition: all 0.1s ease;
     }
 
     h3 {
@@ -338,7 +338,7 @@
   display: flex;
   align-items: center;
   gap: 2rem;
-  transition: all 0.3s ease;
+  transition: all 0.1s ease;
 
   &:hover {
     background: rgba(255, 255, 255, 0.1);
@@ -352,7 +352,7 @@
   .cardIcon {
     font-size: 2.5rem;
     color: rgba(255, 255, 255, 0.5);
-    transition: all 0.3s ease;
+    transition: all 0.1s ease;
   }
 
   .cardInfo {
