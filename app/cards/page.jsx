@@ -122,14 +122,13 @@ export default function CardsPage() {
                 whileHover={{ y: -10 }}
               >
                 <div className={styles.cardVisual}>
-                  <div className={styles.cardMock}>
-                    <Image
-                      src={card.logoSrc}
-                      alt={card.name}
-                      fill
-                      className={styles.cardImage}
-                    />
-                  </div>
+                  <Image
+                    src={card.logoSrc}
+                    alt={card.name}
+                    width={420}
+                    height={260}
+                    className={styles.cardImage}
+                  />
                 </div>
 
                 <div className={styles.cardContent}>
