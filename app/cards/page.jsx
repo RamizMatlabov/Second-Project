@@ -23,7 +23,7 @@ const staggerContainer = {
 
 const cardProducts = [
   {
-    name: 'SafePoint Platinum',
+    name: 'SafePoint Bank HUMO',
     badge: 'Премиальная',
     description: 'Максимальные привилегии для требовательных клиентов.',
     benefits: [
@@ -33,7 +33,7 @@ const cardProducts = [
     ],
   },
   {
-    name: 'SafePoint Travel',
+    name: 'SafePoint Bank Visa',
     badge: 'Для путешествий',
     description: 'Идеальное решение для тех, кто часто в пути.',
     benefits: [
@@ -43,7 +43,7 @@ const cardProducts = [
     ],
   },
   {
-    name: 'SafePoint Daily',
+    name: 'SafePoint Bank UZCARD',
     badge: 'На каждый день',
     description: 'Удобная карта для повседневных покупок.',
     benefits: [
