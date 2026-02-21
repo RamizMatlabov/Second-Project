@@ -31,6 +31,7 @@ const cardProducts = [
       'Доступ в бизнес‑залы аэропортов',
       'Персональный финансовый ассистент',
     ],
+    logoSrc: '/humo.png',
   },
   {
     name: 'SafePoint Bank Visa',
@@ -41,6 +42,7 @@ const cardProducts = [
       'Расширенная страховка путешественника',
       'Консьерж‑сервис 24/7',
     ],
+    logoSrc: '/visa.png',
   },
   {
     name: 'SafePoint Bank UZCARD',
@@ -51,6 +53,7 @@ const cardProducts = [
       'Мгновенные переводы между картами',
       'Управление лимитами в приложении',
     ],
+    logoSrc: '/uzcard.png',
   },
 ];
 
@@ -121,7 +124,7 @@ export default function CardsPage() {
                 <div className={styles.cardVisual}>
                   <div className={styles.cardMock}>
                     <Image
-                      src="/cards/sample-card.png"
+                      src={card.logoSrc}
                       alt={card.name}
                       fill
                       className={styles.cardImage}
