@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { FaCreditCard, FaMobileAlt, FaGlobeEurope, FaShieldAlt } from 'react-icons/fa';
 import styles from './page.module.scss';
@@ -119,18 +120,12 @@ export default function CardsPage() {
               >
                 <div className={styles.cardVisual}>
                   <div className={styles.cardMock}>
-                    <div className={styles.cardMockHeader}>
-                      <span className={styles.cardMockBrand}>SafePoint</span>
-                      <FaCreditCard className={styles.cardMockIcon} />
-                    </div>
-                    <div className={styles.cardMockDetails}>
-                      <span className={styles.cardMockBadge}>{card.badge}</span>
-                      <span className={styles.cardMockNumber}>•••• 4829</span>
-                    </div>
-                    <div className={styles.cardMockFooter}>
-                      <span className={styles.cardMockLabel}>Банковская карта</span>
-                      <span className={styles.cardMockType}>{card.name}</span>
-                    </div>
+                    <Image
+                      src="/cards/sample-card.png"
+                      alt={card.name}
+                      fill
+                      className={styles.cardImage}
+                    />
                   </div>
                 </div>
 

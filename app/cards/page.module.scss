@@ -135,7 +135,6 @@
   max-width: 320px;
   aspect-ratio: 16 / 10;
   border-radius: 24px;
-  padding: 1.4rem 1.6rem;
   background: linear-gradient(135deg, var(--primary-dark), var(--accent-color));
   box-shadow: var(--shadow-lg);
   color: #fff;
@@ -198,6 +197,10 @@
 
 .cardMockType {
   font-weight: 600;
+}
+
+.cardImage {
+  object-fit: cover;
 }
 
 .cardContent {
