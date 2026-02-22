@@ -158,7 +158,7 @@ export default function CardsPage() {
                       </div>
                       <div className={styles.cardMetaItem}>
                         <span className={styles.cardMetaLabel}>Обслуживание</span>
-                        <span className={styles.cardMetaValue}>от 0 ₽ в месяц</span>
+                        <span className={styles.cardMetaValue}>от 0 UZS в месяц</span>
                       </div>
                       <div className={styles.cardMetaItem}>
                         <span className={styles.cardMetaLabel}>Комиссии</span>

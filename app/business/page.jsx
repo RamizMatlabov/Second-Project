@@ -8,7 +8,7 @@ import styles from './page.module.scss';
 const plans = [
   {
     name: 'Старт',
-    price: '0 ₽',
+    price: '0 UZS',
     description: 'Для начинающих предпринимателей',
     features: [
       'Открытие счета за 1 день',
@@ -20,7 +20,7 @@ const plans = [
   },
   {
     name: 'Развитие',
-    price: '1 990 ₽',
+    price: '119 000 UZS',
     description: 'Для активно растущего бизнеса',
     features: [
       'Все возможности "Старта"',
@@ -33,7 +33,7 @@ const plans = [
   },
   {
     name: 'Корпорация',
-    price: '9 990 ₽',
+    price: '319 000 UZS',
     description: 'Для крупных компаний',
     features: [
       'Индивидуальные условия',
