@@ -150,7 +150,7 @@ export default function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            Лидеры SafePoint
+            Почему клиенты выбирают SafePoint
           </motion.h2>
           
           <motion.div 
@@ -163,27 +163,27 @@ export default function About() {
               className={styles.teamMember}
               variants={fadeInUp}
             >
-              <div className={styles.memberPhoto}><FaUserTie /></div>
-              <h3>Александр Петров</h3>
-              <p>CEO & Founder</p>
+              <div className={styles.memberPhoto}><FaHandshake /></div>
+              <h3>Персональный подход</h3>
+              <p>Каждый клиент получает выделенного менеджера и индивидуальные финансовые решения.</p>
             </motion.div>
 
             <motion.div 
               className={styles.teamMember}
               variants={fadeInUp}
             >
-              <div className={styles.memberPhoto}><FaUserTie /></div>
-              <h3>Елена Смирнова</h3>
-              <p>Chief Financial Officer</p>
+              <div className={styles.memberPhoto}><FaLightbulb /></div>
+              <h3>Цифровой банк 24/7</h3>
+              <p>Полный спектр услуг в приложении: от платежей до инвестиций без визита в офис.</p>
             </motion.div>
 
             <motion.div 
               className={styles.teamMember}
               variants={fadeInUp}
             >
-              <div className={styles.memberPhoto}><FaLaptopCode /></div>
-              <h3>Дмитрий Иванов</h3>
-              <p>Chief Technology Officer</p>
+              <div className={styles.memberPhoto}><FaBullseye /></div>
+              <h3>Фокус на безопасности</h3>
+              <p>Многоуровневая защита, мониторинг транзакций и мгновенные уведомления о рисках.</p>
             </motion.div>
           </motion.div>
         </div>
