@@ -76,6 +76,13 @@ const featureHighlights = [
 ];
 
 export default function CardsPage() {
+  const handleMoreClick = () => {
+    const section = document.getElementById('card-features');
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <main className={styles.main}>
       <section className={styles.hero}>
@@ -170,7 +177,10 @@ export default function CardsPage() {
                       <button className={styles.primaryButton}>
                         Оформить карту
                       </button>
-                      <button className={styles.secondaryButton}>
+                      <button
+                        className={styles.secondaryButton}
+                        onClick={handleMoreClick}
+                      >
                         Подробнее
                       </button>
                     </div>
@@ -182,7 +192,7 @@ export default function CardsPage() {
         </div>
       </section>
 
-      <section className={styles.features}>
+      <section id="card-features" className={styles.features}>
         <div className={styles.container}>
           <motion.div
             className={styles.sectionHeader}
