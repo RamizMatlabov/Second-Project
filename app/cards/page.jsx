@@ -11,7 +11,7 @@ const fadeInUp = {
   viewport: { once: true },
   transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
 };
-
+// qwe
 const staggerContainer = {
   initial: { opacity: 0 },
   whileInView: { opacity: 1 },
