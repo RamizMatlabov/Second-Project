@@ -415,6 +415,11 @@
   color: #f97373;
 }
 
+.fieldHint {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
 .statusSuccess,
 .statusError {
   padding: 0.85rem 1rem;

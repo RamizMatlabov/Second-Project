@@ -199,14 +199,29 @@ export default function CardApplyPage() {
 
               <div className={styles.formField}>
                 <label htmlFor="cardType">Тип карты *</label>
-                <input
-                  id="cardType"
-                  name="cardType"
-                  type="text"
-                  value={formData.cardType}
-                  onChange={handleChange}
-                  placeholder="Например, SafePoint Bank HUMO"
-                />
+                {cardFromQuery ? (
+                  <>
+                    <input
+                      id="cardType"
+                      name="cardType"
+                      type="text"
+                      value={formData.cardType}
+                      readOnly
+                    />
+                    <small className={styles.fieldHint}>
+                      Тип карты выбран на предыдущей странице и не может быть изменён.
+                    </small>
+                  </>
+                ) : (
+                  <input
+                    id="cardType"
+                    name="cardType"
+                    type="text"
+                    value={formData.cardType}
+                    onChange={handleChange}
+                    placeholder="Например, SafePoint Bank HUMO"
+                  />
+                )}
                 {errors.cardType && (
                   <span className={styles.fieldError}>{errors.cardType}</span>
                 )}
