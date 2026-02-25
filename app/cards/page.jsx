@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import { FaCreditCard, FaMobileAlt, FaGlobeEurope, FaShieldAlt } from 'react-icons/fa';
 import styles from './page.module.scss';
 
@@ -76,11 +77,18 @@ const featureHighlights = [
 ];
 
 export default function CardsPage() {
+  const router = useRouter();
+
   const handleMoreClick = () => {
     const section = document.getElementById('card-features');
     if (section) {
       section.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+  };
+
+  const handleSelectCard = (cardName) => {
+    const query = new URLSearchParams({ card: cardName }).toString();
+    router.push(`/cards/apply?${query}`);
   };
 
   return (
@@ -174,10 +182,15 @@ export default function CardsPage() {
                     </div>
 
                     <div className={styles.cardActions}>
-                      <button className={styles.primaryButton}>
+                      <button
+                        type="button"
+                        className={styles.primaryButton}
+                        onClick={() => handleSelectCard(card.name)}
+                      >
                         Оформить карту
                       </button>
                       <button
+                        type="button"
                         className={styles.secondaryButton}
                         onClick={handleMoreClick}
                       >
