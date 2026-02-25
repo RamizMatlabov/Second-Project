@@ -26,6 +26,7 @@ const initialFormState = (cardFromQuery = '') => ({
   phone: '',
   email: '',
   cardType: cardFromQuery,
+  pickupPoint: '',
 });
 
 export default function CardApplyPage() {
@@ -68,6 +69,10 @@ export default function CardApplyPage() {
 
     if (!data.cardType.trim()) {
       newErrors.cardType = 'Пожалуйста, укажите тип карты.';
+    }
+
+    if (!data.pickupPoint.trim()) {
+      newErrors.pickupPoint = 'Пожалуйста, выберите пункт выдачи.';
     }
 
     return newErrors;
@@ -168,6 +173,29 @@ export default function CardApplyPage() {
                 />
                 {errors.fullName && (
                   <span className={styles.fieldError}>{errors.fullName}</span>
+                )}
+              </div>
+
+              <div className={styles.formField}>
+                <label htmlFor="pickupPoint">Пункт выдачи *</label>
+                <select
+                  id="pickupPoint"
+                  name="pickupPoint"
+                  value={formData.pickupPoint}
+                  onChange={handleChange}
+                >
+                  <option value="">Выберите пункт выдачи</option>
+                  <option value="Центральное отделение, Ташкент">
+                    Центральное отделение, Ташкент
+                  </option>
+                  <option value="Отделение в ТРЦ, Ташкент">
+                    Отделение в ТРЦ, Ташкент
+                  </option>
+                  <option value="Отделение, Самарканд">Отделение, Самарканд</option>
+                  <option value="Отделение, Бухара">Отделение, Бухара</option>
+                </select>
+                {errors.pickupPoint && (
+                  <span className={styles.fieldError}>{errors.pickupPoint}</span>
                 )}
               </div>
 

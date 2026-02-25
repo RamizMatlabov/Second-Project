@@ -1,9 +1,9 @@
 export async function POST(request) {
   try {
     const body = await request.json();
-    const { fullName, phone, email, cardType } = body || {};
+    const { fullName, phone, email, cardType, pickupPoint } = body || {};
 
-    if (!fullName || !phone || !email || !cardType) {
+    if (!fullName || !phone || !email || !cardType || !pickupPoint) {
       return new Response(
         JSON.stringify({ message: 'Заполните все обязательные поля формы.' }),
         {
