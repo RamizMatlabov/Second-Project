@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import styles from '../page.module.scss';
@@ -37,6 +37,17 @@ export default function CardApplyPage() {
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState({ type: null, message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (status.type === 'success' && status.message) {
+      const timer = setTimeout(() => {
+        setStatus({ type: null, message: '' });
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }
+    return undefined;
+  }, [status]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
