@@ -90,19 +90,40 @@ export default function ProfilePage() {
 
     setLoadingApps(true);
     setErrorApps(null);
+    let hadLocal = false;
+    if (typeof window !== 'undefined') {
+      try {
+        const raw = window.localStorage.getItem('safepoint_applications_local');
+        const local = raw ? JSON.parse(raw) : [];
+        const localForUser = local.filter((x) => x.userId === user.uid).map((x) => ({
+          id: x.id,
+          userId: x.userId,
+          userName: x.userName,
+          phone: x.phone,
+          email: x.email,
+          cardType: x.cardType,
+          pickupPoint: x.pickupPoint,
+          status: x.status || 'pending',
+          createdAt: x.createdAt ? new Date(x.createdAt) : new Date()
+        })).sort((a, b) => b.createdAt - a.createdAt);
+        if (localForUser.length > 0) {
+          setApplications(localForUser);
+          setLoadingApps(false);
+          hadLocal = true;
+        }
+      } catch (e) {}
+    }
 
-    // Добавляем таймаут для загрузки, если Firestore долго не отвечает
     const loadTimeout = setTimeout(() => {
       setLoadingApps(prevLoading => {
-        if (prevLoading) {
+        if (prevLoading && !hadLocal) {
           setErrorApps('Загрузка занимает слишком много времени. Попробуйте обновить страницу.');
           return false;
         }
         return prevLoading;
       });
-    }, 10000); // 10 секунд
+    }, 5000);
 
-    // Используем onSnapshot для мгновенного получения обновлений и более быстрой работы
     const q = query(
       collection(db, 'applications'),
       where('userId', '==', user.uid)
@@ -121,7 +142,29 @@ export default function ProfilePage() {
           };
         })
         .sort((a, b) => b.createdAt - a.createdAt);
-        
+        if (apps.length === 0 && typeof window !== 'undefined') {
+          try {
+            const raw = window.localStorage.getItem('safepoint_applications_local');
+            const local = raw ? JSON.parse(raw) : [];
+            const localForUser = local.filter((x) => x.userId === user.uid).map((x) => ({
+              id: x.id,
+              userId: x.userId,
+              userName: x.userName,
+              phone: x.phone,
+              email: x.email,
+              cardType: x.cardType,
+              pickupPoint: x.pickupPoint,
+              status: x.status || 'pending',
+              createdAt: x.createdAt ? new Date(x.createdAt) : new Date()
+            })).sort((a, b) => b.createdAt - a.createdAt);
+            if (localForUser.length > 0) {
+              setApplications(localForUser);
+              setLoadingApps(false);
+              setErrorApps(null);
+              return;
+            }
+          } catch (e) {}
+        }
         setApplications(apps);
         setLoadingApps(false);
         setErrorApps(null);
@@ -133,6 +176,29 @@ export default function ProfilePage() {
     }, (err) => {
       clearTimeout(loadTimeout);
       console.error('Firestore onSnapshot error:', err);
+      if (typeof window !== 'undefined') {
+        try {
+          const raw = window.localStorage.getItem('safepoint_applications_local');
+          const local = raw ? JSON.parse(raw) : [];
+          const localForUser = local.filter((x) => x.userId === user.uid).map((x) => ({
+            id: x.id,
+            userId: x.userId,
+            userName: x.userName,
+            phone: x.phone,
+            email: x.email,
+            cardType: x.cardType,
+            pickupPoint: x.pickupPoint,
+            status: x.status || 'pending',
+            createdAt: x.createdAt ? new Date(x.createdAt) : new Date()
+          })).sort((a, b) => b.createdAt - a.createdAt);
+          if (localForUser.length > 0) {
+            setApplications(localForUser);
+            setErrorApps(null);
+            setLoadingApps(false);
+            return;
+          }
+        } catch (e) {}
+      }
       setErrorApps('Не удалось загрузить список заявок. Возможно, отсутствуют права доступа.');
       setLoadingApps(false);
     });

@@ -14,7 +14,8 @@ export async function POST(request) {
     }
 
     // Здесь может быть вызов реального бэкенда или сохранение в БД.
-    // Убираем искусственную задержку для ускорения работы.
+    // Сейчас имитируем небольшую задержку и успешный ответ.
+    await new Promise((resolve) => setTimeout(resolve, 800));
 
     return new Response(
       JSON.stringify({

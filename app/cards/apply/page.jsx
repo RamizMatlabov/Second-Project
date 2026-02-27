@@ -153,6 +153,26 @@ export default function CardApplyPage() {
         message: 'Заявка успешно отправлена! Переходим в личный кабинет...',
       });
 
+      try {
+        if (typeof window !== 'undefined') {
+          const raw = window.localStorage.getItem('safepoint_applications_local');
+          const arr = raw ? JSON.parse(raw) : [];
+          const id = typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : String(Date.now());
+          arr.unshift({
+            id,
+            userId: user.uid,
+            userName: formData.fullName,
+            phone: formData.phone,
+            email: formData.email,
+            cardType: formData.cardType,
+            pickupPoint: formData.pickupPoint,
+            status: 'pending',
+            createdAt: new Date().toISOString()
+          });
+          window.localStorage.setItem('safepoint_applications_local', JSON.stringify(arr));
+        }
+      } catch (e) {}
+
       setFormData((prev) => ({
         ...initialFormState(prev.cardType),
       }));
@@ -328,4 +348,3 @@ export default function CardApplyPage() {
     </main>
   );
 }
-
