@@ -132,7 +132,7 @@ export default function ProfilePage() {
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       clearTimeout(loadTimeout);
       try {
-        const apps = querySnapshot.docs.map(doc => {
+        const firestoreApps = querySnapshot.docs.map(doc => {
           const data = doc.data();
           return {
             id: doc.id,
@@ -142,7 +142,8 @@ export default function ProfilePage() {
           };
         })
         .sort((a, b) => b.createdAt - a.createdAt);
-        if (apps.length === 0 && typeof window !== 'undefined') {
+        let combined = firestoreApps;
+        if (typeof window !== 'undefined') {
           try {
             const raw = window.localStorage.getItem('safepoint_applications_local');
             const local = raw ? JSON.parse(raw) : [];
@@ -156,16 +157,15 @@ export default function ProfilePage() {
               pickupPoint: x.pickupPoint,
               status: x.status || 'pending',
               createdAt: x.createdAt ? new Date(x.createdAt) : new Date()
-            })).sort((a, b) => b.createdAt - a.createdAt);
-            if (localForUser.length > 0) {
-              setApplications(localForUser);
-              setLoadingApps(false);
-              setErrorApps(null);
-              return;
+            }));
+            const seen = new Set(combined.map(a => a.id));
+            for (const x of localForUser) {
+              if (!seen.has(x.id)) combined.push(x);
             }
           } catch (e) {}
         }
-        setApplications(apps);
+        combined = combined.sort((a, b) => b.createdAt - a.createdAt);
+        setApplications(combined);
         setLoadingApps(false);
         setErrorApps(null);
       } catch (err) {
