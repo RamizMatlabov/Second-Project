@@ -12,11 +12,12 @@ import {
   FaUserEdit,
   FaPhoneAlt,
   FaMapMarkerAlt,
-  FaInfoCircle
+  FaInfoCircle,
+  FaClipboardList
 } from 'react-icons/fa';
 import styles from './page.module.scss';
 import { useAuth } from '../context/AuthContext';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, collection, query, where, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase/config';
 
 export default function ProfilePage() {
@@ -24,6 +25,9 @@ export default function ProfilePage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [showSuccessBanner, setShowSuccessBanner] = useState(false);
+  const [applications, setApplications] = useState([]);
+  const [loadingApps, setLoadingApps] = useState(true);
+  const [errorApps, setErrorApps] = useState(null);
   const [profileData, setProfileData] = useState(() => {
     try {
       if (typeof window !== 'undefined') {
@@ -79,6 +83,64 @@ export default function ProfilePage() {
     };
 
     fetchDetails();
+  }, [user]);
+
+  useEffect(() => {
+    if (!user) return;
+
+    setLoadingApps(true);
+    setErrorApps(null);
+
+    // Добавляем таймаут для загрузки, если Firestore долго не отвечает
+    const loadTimeout = setTimeout(() => {
+      setLoadingApps(prevLoading => {
+        if (prevLoading) {
+          setErrorApps('Загрузка занимает слишком много времени. Попробуйте обновить страницу.');
+          return false;
+        }
+        return prevLoading;
+      });
+    }, 10000); // 10 секунд
+
+    // Используем onSnapshot для мгновенного получения обновлений и более быстрой работы
+    const q = query(
+      collection(db, 'applications'),
+      where('userId', '==', user.uid)
+    );
+
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      clearTimeout(loadTimeout);
+      try {
+        const apps = querySnapshot.docs.map(doc => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            ...data,
+            // Безопасно преобразуем дату, учитывая возможные null/undefined
+            createdAt: data.createdAt?.toDate() || new Date()
+          };
+        })
+        .sort((a, b) => b.createdAt - a.createdAt);
+        
+        setApplications(apps);
+        setLoadingApps(false);
+        setErrorApps(null);
+      } catch (err) {
+        console.error('Error processing applications snapshot:', err);
+        setErrorApps('Ошибка при обработке данных заявок');
+        setLoadingApps(false);
+      }
+    }, (err) => {
+      clearTimeout(loadTimeout);
+      console.error('Firestore onSnapshot error:', err);
+      setErrorApps('Не удалось загрузить список заявок. Возможно, отсутствуют права доступа.');
+      setLoadingApps(false);
+    });
+
+    return () => {
+      clearTimeout(loadTimeout);
+      unsubscribe();
+    };
   }, [user]);
 
   useEffect(() => {
@@ -222,6 +284,57 @@ export default function ProfilePage() {
                 <li>Проверяйте историю входов в личный кабинет на наличие подозрительных устройств.</li>
               </ul>
             </div>
+          </motion.div>
+        </section>
+
+        <section className={styles.applicationsSection}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.4 }}
+          >
+            <h2>Мои заявки</h2>
+            {loadingApps ? (
+              <div className={styles.loadingApplications}>
+                <div className={styles.spinner}></div>
+                <p>Загрузка заявок...</p>
+              </div>
+            ) : errorApps ? (
+              <div className={styles.errorApplications}>
+                <p>{errorApps}</p>
+                <button onClick={() => window.location.reload()} className={styles.secondaryButton}>
+                  Попробовать снова
+                </button>
+              </div>
+            ) : applications.length > 0 ? (
+              <div className={styles.applicationsList}>
+                {applications.map((app) => (
+                  <div key={app.id} className={styles.applicationCard}>
+                    <div className={styles.appInfo}>
+                      <h3>{app.cardType}</h3>
+                      <p>Дата подачи: {app.createdAt?.toLocaleDateString() || 'Не указана'}</p>
+                      <p>Пункт выдачи: {app.pickupPoint}</p>
+                    </div>
+                    <div className={`${styles.appStatus} ${styles[app.status]}`}>
+                      {app.status === 'pending' ? 'В обработке' : 
+                       app.status === 'approved' ? 'Одобрено' : 
+                       app.status === 'rejected' ? 'Отклонено' : app.status}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className={styles.noApplications}>
+                <FaClipboardList />
+                <p>У вас пока нет активных заявок.</p>
+                <button 
+                  className={styles.editButton}
+                  onClick={() => router.push('/cards')}
+                >
+                  Оформить карту
+                </button>
+              </div>
+            )}
           </motion.div>
         </section>
       </div>

@@ -1,9 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import styles from '../page.module.scss';
+import { useAuth } from '../../context/AuthContext';
+import { db } from '../../firebase/config';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -30,6 +33,8 @@ const initialFormState = (cardFromQuery = '') => ({
 });
 
 export default function CardApplyPage() {
+  const { user } = useAuth();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const cardFromQuery = searchParams.get('card') || '';
 
@@ -92,6 +97,11 @@ export default function CardApplyPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    if (!user) {
+      setStatus({ type: 'error', message: 'Пожалуйста, войдите в аккаунт, чтобы оставить заявку.' });
+      return;
+    }
+
     const validationErrors = validate(formData);
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -104,7 +114,22 @@ export default function CardApplyPage() {
     setStatus({ type: null, message: '' });
 
     try {
-      const response = await fetch('/api/cards', {
+      // Запускаем сохранение в Firestore и отправку на API параллельно
+      const firestorePromise = addDoc(collection(db, 'applications'), {
+        userId: user.uid,
+        userName: formData.fullName,
+        phone: formData.phone,
+        email: formData.email,
+        cardType: formData.cardType,
+        pickupPoint: formData.pickupPoint,
+        status: 'pending',
+        createdAt: serverTimestamp(),
+      }).catch(err => {
+        console.error('Firestore error (non-blocking):', err);
+        return null; // Не блокируем процесс, если Firestore подвел
+      });
+
+      const apiPromise = fetch('/api/cards', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -112,23 +137,32 @@ export default function CardApplyPage() {
         body: JSON.stringify(formData),
       });
 
+      // Ждем ответа от API, сохранение в Firestore может идти параллельно
+      const response = await apiPromise;
       const data = await response.json().catch(() => ({}));
 
       if (!response.ok) {
         const message = data.message || 'Не удалось отправить заявку. Попробуйте ещё раз.';
         setStatus({ type: 'error', message });
+        setIsSubmitting(false);
         return;
       }
 
       setStatus({
         type: 'success',
-        message: data.message || 'Заявка успешно отправлена. Мы свяжемся с вами в ближайшее время.',
+        message: 'Заявка успешно отправлена! Переходим в личный кабинет...',
       });
 
       setFormData((prev) => ({
         ...initialFormState(prev.cardType),
       }));
+
+      // Перенаправляем быстрее
+      setTimeout(() => {
+        router.push('/profile');
+      }, 800);
     } catch (error) {
+      console.error('Error submitting application:', error);
       setStatus({
         type: 'error',
         message: 'Произошла ошибка при отправке заявки. Попробуйте ещё раз позже.',
