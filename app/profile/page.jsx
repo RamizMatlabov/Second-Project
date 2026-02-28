@@ -248,7 +248,6 @@ export default function ProfilePage() {
   const bio = profileData.bio || 'Не указано';
 
   const cardApplications = applications.filter(app => app.applicationType === 'card');
-  const depositApplications = applications.filter(app => app.applicationType === 'deposit');
 
   return (
     <main className={styles.main}>
@@ -382,12 +381,6 @@ export default function ProfilePage() {
               >
                 Заявки на карты ({cardApplications.length})
               </button>
-              <button
-                className={`${styles.tabButton} ${activeTab === 'deposits' ? styles.activeTab : ''}`}
-                onClick={() => setActiveTab('deposits')}
-              >
-                Заявки на вклады ({depositApplications.length})
-              </button>
             </div>
 
             {loadingApps ? (
@@ -436,37 +429,7 @@ export default function ProfilePage() {
                   )
                 )}
 
-                {activeTab === 'deposits' && (
-                  depositApplications.length > 0 ? (
-                    <div className={styles.applicationsList}>
-                      {depositApplications.map((app) => (
-                        <div key={app.id} className={styles.applicationCard}>
-                          <div className={styles.appInfo}>
-                            <h3>{app.depositType}</h3>
-                            <p>Дата подачи: {app.createdAt?.toLocaleDateString() || 'Не указана'}</p>
-                            <p>Пункт выдачи: {app.pickupPoint}</p>
-                          </div>
-                          <div className={`${styles.appStatus} ${styles[app.status]}`}>
-                            {app.status === 'pending' ? 'В обработке' : 
-                             app.status === 'approved' ? 'Одобрено' : 
-                             app.status === 'rejected' ? 'Отклонено' : app.status}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className={styles.noApplications}>
-                      <FaClipboardList />
-                      <p>У вас пока нет активных заявок на вклады.</p>
-                      <button 
-                        className={styles.editButton}
-                        onClick={() => router.push('/deposits/apply')}
-                      >
-                        Оформить вклад
-                      </button>
-                    </div>
-                  )
-                )}
+
               </>
             )}
           </motion.div>

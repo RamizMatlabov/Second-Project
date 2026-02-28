@@ -2,9 +2,32 @@
 
 import { motion } from 'framer-motion';
 import { FaPiggyBank, FaPercent, FaCalendarAlt } from 'react-icons/fa';
-import { useState } from 'react';
+import Link from 'next/link';
 import styles from './page.module.scss';
-import DepositCalculator from '../components/DepositCalculator';
+
+const depositTypes = [
+  {
+    name: 'Накопительный',
+    rate: 18,
+    minTerm: 3,
+    maxTerm: 12,
+    description: 'Идеально для постепенного накопления с возможностью пополнения.'
+  },
+  {
+    name: 'Выгодный',
+    rate: 23,
+    minTerm: 12,
+    maxTerm: 36,
+    description: 'Максимальная доходность для долгосрочных вложений.'
+  },
+  {
+    name: 'Универсальный',
+    rate: 15,
+    minTerm: 1,
+    maxTerm: 24,
+    description: 'Гибкие условия снятия и пополнения в любое время.'
+  }
+];
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -22,30 +45,6 @@ const staggerContainer = {
   },
 };
 
-const depositTypes = [
-  {
-    name: 'Накопительный',
-    rate: 14,
-    minTerm: 3,
-    maxTerm: 24,
-    description: 'Подходит для постепенного формирования финансовой подушки.',
-  },
-  {
-    name: 'Срочный',
-    rate: 16,
-    minTerm: 6,
-    maxTerm: 36,
-    description: 'Максимальная ставка при фиксированном сроке размещения.',
-  },
-  {
-    name: 'Управляемый',
-    rate: 12,
-    minTerm: 1,
-    maxTerm: 18,
-    description: 'Можно пополнять и частично снимать средства без потери процентов.',
-  },
-];
-
 const infoBlocks = [
   {
     icon: <FaPercent />,
@@ -60,19 +59,6 @@ const infoBlocks = [
 ];
 
 export default function DepositsPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedDeposit, setSelectedDeposit] = useState(null);
-
-  const handleCalculateClick = (deposit) => {
-    setSelectedDeposit(deposit);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedDeposit(null);
-  };
-
   return (
     <main className={styles.main}>
       <section className={styles.hero}>
@@ -125,12 +111,12 @@ export default function DepositsPage() {
                 <p className={styles.rate}>{item.rate}% годовых</p>
                 <p className={styles.term}>от {item.minTerm} до {item.maxTerm} месяцев</p>
                 <p className={styles.description}>{item.description}</p>
-                <button
+                <Link
+                  href={`/deposits/apply?deposit=${encodeURIComponent(item.name)}`}
                   className={styles.primaryButton}
-                  onClick={() => handleCalculateClick(item)}
                 >
                   Рассчитать доходность
-                </button>
+                </Link>
               </motion.article>
             ))}
           </motion.div>
@@ -174,12 +160,6 @@ export default function DepositsPage() {
           </motion.div>
         </div>
       </section>
-
-      <DepositCalculator
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        deposit={selectedDeposit}
-      />
     </main>
   );
 }
