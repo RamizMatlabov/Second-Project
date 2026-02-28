@@ -5,7 +5,7 @@ import styles from './DepositCalculator.module.scss';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
-const DepositCalculator = ({ deposit }) => {
+const DepositCalculator = ({ deposit, onApply }) => {
   const [amount, setAmount] = useState(1000000);
   const [term, setTerm] = useState(12);
   const [income, setIncome] = useState(0);
@@ -120,6 +120,13 @@ const DepositCalculator = ({ deposit }) => {
           <span className={styles.resultValue}>{formatCurrency(totalAmount)}</span>
         </div>
       </div>
+
+      <button
+        className={styles.applyButton}
+        onClick={onApply}
+      >
+        Открыть вклад
+      </button>
     </div>
   );
 };

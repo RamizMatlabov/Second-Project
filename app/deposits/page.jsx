@@ -1,8 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { FaPiggyBank, FaPercent, FaCalendarAlt } from 'react-icons/fa';
-import Link from 'next/link';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaPiggyBank, FaPercent, FaCalendarAlt, FaCheckCircle, FaSpinner } from 'react-icons/fa';
+import DepositCalculator from '../components/DepositCalculator';
 import styles from './page.module.scss';
 
 const depositTypes = [
@@ -59,6 +60,34 @@ const infoBlocks = [
 ];
 
 export default function DepositsPage() {
+  const [showCalculator, setShowCalculator] = useState(false);
+  const [selectedDeposit, setSelectedDeposit] = useState(null);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleCalculateClick = (deposit) => {
+    setSelectedDeposit(deposit);
+    setShowCalculator(true);
+    setIsSuccess(false);
+    setIsLoading(false);
+  };
+
+  const handleCloseCalculator = () => {
+    setShowCalculator(false);
+    setSelectedDeposit(null);
+    setIsSuccess(false);
+    setIsLoading(false);
+  };
+
+  const handleApply = () => {
+    setIsLoading(true);
+    // Simulate API call delay
+    setTimeout(() => {
+      setIsLoading(false);
+      setIsSuccess(true);
+    }, 2000);
+  };
+
   return (
     <main className={styles.main}>
       <section className={styles.hero}>
@@ -111,12 +140,12 @@ export default function DepositsPage() {
                 <p className={styles.rate}>{item.rate}% годовых</p>
                 <p className={styles.term}>от {item.minTerm} до {item.maxTerm} месяцев</p>
                 <p className={styles.description}>{item.description}</p>
-                <Link
-                  href={`/deposits/apply?deposit=${encodeURIComponent(item.name)}`}
+                <button
+                  onClick={() => handleCalculateClick(item)}
                   className={styles.primaryButton}
                 >
                   Рассчитать доходность
-                </Link>
+                </button>
               </motion.article>
             ))}
           </motion.div>
@@ -160,6 +189,52 @@ export default function DepositsPage() {
           </motion.div>
         </div>
       </section>
+
+      <AnimatePresence>
+        {showCalculator && selectedDeposit && (
+          <motion.div
+            className={styles.modalBackdrop}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={handleCloseCalculator}
+          >
+            <motion.div
+              className={styles.modalContent}
+              initial={{ y: "-100vh", opacity: 0 }}
+              animate={{ y: "0", opacity: 1 }}
+              exit={{ y: "100vh", opacity: 0 }}
+              transition={{ duration: 0.3, type: "spring", damping: 25, stiffness: 500 }}
+              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside modal
+            >
+              {isLoading ? (
+                <div className={styles.loadingMessage}>
+                  <FaSpinner className={styles.spinnerIcon} />
+                  <h2>Обработка заявки...</h2>
+                  <p>Пожалуйста, подождите, мы регистрируем вашу заявку на открытие вклада.</p>
+                </div>
+              ) : isSuccess ? (
+                <div className={styles.successMessage}>
+                  <FaCheckCircle className={styles.successIcon} />
+                  <h2>Заявка принята!</h2>
+                  <p>Заявка на открытие вклада "{selectedDeposit.name}" принята! Наш специалист свяжется с вами в ближайшее время.</p>
+                  <button 
+                    className={styles.primaryButton} 
+                    onClick={handleCloseCalculator}
+                  >
+                    Понятно
+                  </button>
+                </div>
+              ) : (
+                <DepositCalculator deposit={selectedDeposit} onApply={handleApply} />
+              )}
+              <button className={styles.closeButton} onClick={handleCloseCalculator}>
+                &times;
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   );
 }
