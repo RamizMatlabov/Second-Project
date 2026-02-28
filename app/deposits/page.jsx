@@ -2,7 +2,9 @@
 
 import { motion } from 'framer-motion';
 import { FaPiggyBank, FaPercent, FaCalendarAlt } from 'react-icons/fa';
+import { useState } from 'react';
 import styles from './page.module.scss';
+import DepositCalculator from '../components/DepositCalculator';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -23,20 +25,23 @@ const staggerContainer = {
 const depositTypes = [
   {
     name: 'Накопительный',
-    rate: 'до 14% годовых',
-    term: 'от 3 до 24 месяцев',
+    rate: 14,
+    minTerm: 3,
+    maxTerm: 24,
     description: 'Подходит для постепенного формирования финансовой подушки.',
   },
   {
     name: 'Срочный',
-    rate: 'до 16% годовых',
-    term: 'от 6 до 36 месяцев',
+    rate: 16,
+    minTerm: 6,
+    maxTerm: 36,
     description: 'Максимальная ставка при фиксированном сроке размещения.',
   },
   {
     name: 'Управляемый',
-    rate: 'до 12% годовых',
-    term: 'от 1 до 18 месяцев',
+    rate: 12,
+    minTerm: 1,
+    maxTerm: 18,
     description: 'Можно пополнять и частично снимать средства без потери процентов.',
   },
 ];
@@ -55,6 +60,19 @@ const infoBlocks = [
 ];
 
 export default function DepositsPage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedDeposit, setSelectedDeposit] = useState(null);
+
+  const handleCalculateClick = (deposit) => {
+    setSelectedDeposit(deposit);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedDeposit(null);
+  };
+
   return (
     <main className={styles.main}>
       <section className={styles.hero}>
@@ -104,10 +122,13 @@ export default function DepositsPage() {
                   <FaPiggyBank />
                 </div>
                 <h3>{item.name}</h3>
-                <p className={styles.rate}>{item.rate}</p>
-                <p className={styles.term}>{item.term}</p>
+                <p className={styles.rate}>{item.rate}% годовых</p>
+                <p className={styles.term}>от {item.minTerm} до {item.maxTerm} месяцев</p>
                 <p className={styles.description}>{item.description}</p>
-                <button className={styles.primaryButton}>
+                <button
+                  className={styles.primaryButton}
+                  onClick={() => handleCalculateClick(item)}
+                >
                   Рассчитать доходность
                 </button>
               </motion.article>
@@ -153,6 +174,12 @@ export default function DepositsPage() {
           </motion.div>
         </div>
       </section>
+
+      <DepositCalculator
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        deposit={selectedDeposit}
+      />
     </main>
   );
 }
