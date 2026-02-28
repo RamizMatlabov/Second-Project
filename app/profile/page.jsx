@@ -28,6 +28,7 @@ export default function ProfilePage() {
   const [applications, setApplications] = useState([]);
   const [loadingApps, setLoadingApps] = useState(true);
   const [errorApps, setErrorApps] = useState(null);
+  const [activeTab, setActiveTab] = useState('cards'); // Новое состояние для активной вкладки
   const [profileData, setProfileData] = useState(() => {
     try {
       if (typeof window !== 'undefined') {
@@ -99,16 +100,18 @@ export default function ProfilePage() {
         const raw = window.localStorage.getItem('safepoint_applications_local');
         const local = raw ? JSON.parse(raw) : [];
         const localForUser = local.filter((x) => x.userId === user.uid).map((x) => ({
-          id: x.id,
-          userId: x.userId,
-          userName: x.userName,
-          phone: x.phone,
-          email: x.email,
-          cardType: x.cardType,
-          pickupPoint: x.pickupPoint,
-          status: x.status || 'pending',
-          createdAt: x.createdAt ? new Date(x.createdAt) : new Date()
-        })).sort((a, b) => b.createdAt - a.createdAt);
+            id: x.id,
+            userId: x.userId,
+            userName: x.userName,
+            phone: x.phone,
+            email: x.email,
+            cardType: x.cardType,
+            depositType: x.depositType, // Добавляем depositType
+            pickupPoint: x.pickupPoint,
+            status: x.status || 'pending',
+            applicationType: x.applicationType || (x.cardType ? 'card' : 'unknown'), // Определяем тип заявки
+            createdAt: x.createdAt ? new Date(x.createdAt) : new Date()
+          })).sort((a, b) => b.createdAt - a.createdAt);
         if (localForUser.length > 0) {
           setApplications(localForUser);
           setLoadingApps(false);
@@ -140,6 +143,8 @@ export default function ProfilePage() {
           return {
             id: doc.id,
             ...data,
+            depositType: data.depositType || '', // Добавляем depositType
+            applicationType: data.applicationType || (data.cardType ? 'card' : 'unknown'), // Определяем тип заявки
             // Безопасно преобразуем дату, учитывая возможные null/undefined
             createdAt: data.createdAt?.toDate() || new Date()
           };
@@ -157,8 +162,10 @@ export default function ProfilePage() {
               phone: x.phone,
               email: x.email,
               cardType: x.cardType,
+              depositType: x.depositType, // Добавляем depositType
               pickupPoint: x.pickupPoint,
               status: x.status || 'pending',
+              applicationType: x.applicationType || (x.cardType ? 'card' : 'unknown'), // Определяем тип заявки
               createdAt: x.createdAt ? new Date(x.createdAt) : new Date()
             }));
             const seen = new Set(combined.map(a => a.id));
@@ -190,8 +197,10 @@ export default function ProfilePage() {
             phone: x.phone,
             email: x.email,
             cardType: x.cardType,
+            depositType: x.depositType,
             pickupPoint: x.pickupPoint,
             status: x.status || 'pending',
+            applicationType: x.applicationType || (x.cardType ? 'card' : 'unknown'),
             createdAt: x.createdAt ? new Date(x.createdAt) : new Date()
           })).sort((a, b) => b.createdAt - a.createdAt);
           if (localForUser.length > 0) {
@@ -237,6 +246,9 @@ export default function ProfilePage() {
   const phone = profileData.phone || 'Не указан';
   const address = profileData.address || 'Не указан';
   const bio = profileData.bio || 'Не указано';
+
+  const cardApplications = applications.filter(app => app.applicationType === 'card');
+  const depositApplications = applications.filter(app => app.applicationType === 'deposit');
 
   return (
     <main className={styles.main}>
@@ -363,6 +375,21 @@ export default function ProfilePage() {
             transition={{ delay: 0.2, duration: 0.4 }}
           >
             <h2>Мои заявки</h2>
+            <div className={styles.tabs}>
+              <button
+                className={`${styles.tabButton} ${activeTab === 'cards' ? styles.activeTab : ''}`}
+                onClick={() => setActiveTab('cards')}
+              >
+                Заявки на карты ({cardApplications.length})
+              </button>
+              <button
+                className={`${styles.tabButton} ${activeTab === 'deposits' ? styles.activeTab : ''}`}
+                onClick={() => setActiveTab('deposits')}
+              >
+                Заявки на вклады ({depositApplications.length})
+              </button>
+            </div>
+
             {loadingApps ? (
               <div className={styles.loadingApplications}>
                 <div className={styles.spinner}></div>
@@ -375,34 +402,72 @@ export default function ProfilePage() {
                   Попробовать снова
                 </button>
               </div>
-            ) : applications.length > 0 ? (
-              <div className={styles.applicationsList}>
-                {applications.map((app) => (
-                  <div key={app.id} className={styles.applicationCard}>
-                    <div className={styles.appInfo}>
-                      <h3>{app.cardType}</h3>
-                      <p>Дата подачи: {app.createdAt?.toLocaleDateString() || 'Не указана'}</p>
-                      <p>Пункт выдачи: {app.pickupPoint}</p>
-                    </div>
-                    <div className={`${styles.appStatus} ${styles[app.status]}`}>
-                      {app.status === 'pending' ? 'В обработке' : 
-                       app.status === 'approved' ? 'Одобрено' : 
-                       app.status === 'rejected' ? 'Отклонено' : app.status}
-                    </div>
-                  </div>
-                ))}
-              </div>
             ) : (
-              <div className={styles.noApplications}>
-                <FaClipboardList />
-                <p>У вас пока нет активных заявок.</p>
-                <button 
-                  className={styles.editButton}
-                  onClick={() => router.push('/cards')}
-                >
-                  Оформить карту
-                </button>
-              </div>
+              <>
+                {activeTab === 'cards' && (
+                  cardApplications.length > 0 ? (
+                    <div className={styles.applicationsList}>
+                      {cardApplications.map((app) => (
+                        <div key={app.id} className={styles.applicationCard}>
+                          <div className={styles.appInfo}>
+                            <h3>{app.cardType}</h3>
+                            <p>Дата подачи: {app.createdAt?.toLocaleDateString() || 'Не указана'}</p>
+                            <p>Пункт выдачи: {app.pickupPoint}</p>
+                          </div>
+                          <div className={`${styles.appStatus} ${styles[app.status]}`}>
+                            {app.status === 'pending' ? 'В обработке' : 
+                             app.status === 'approved' ? 'Одобрено' : 
+                             app.status === 'rejected' ? 'Отклонено' : app.status}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className={styles.noApplications}>
+                      <FaClipboardList />
+                      <p>У вас пока нет активных заявок на карты.</p>
+                      <button 
+                        className={styles.editButton}
+                        onClick={() => router.push('/cards')}
+                      >
+                        Оформить карту
+                      </button>
+                    </div>
+                  )
+                )}
+
+                {activeTab === 'deposits' && (
+                  depositApplications.length > 0 ? (
+                    <div className={styles.applicationsList}>
+                      {depositApplications.map((app) => (
+                        <div key={app.id} className={styles.applicationCard}>
+                          <div className={styles.appInfo}>
+                            <h3>{app.depositType}</h3>
+                            <p>Дата подачи: {app.createdAt?.toLocaleDateString() || 'Не указана'}</p>
+                            <p>Пункт выдачи: {app.pickupPoint}</p>
+                          </div>
+                          <div className={`${styles.appStatus} ${styles[app.status]}`}>
+                            {app.status === 'pending' ? 'В обработке' : 
+                             app.status === 'approved' ? 'Одобрено' : 
+                             app.status === 'rejected' ? 'Отклонено' : app.status}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className={styles.noApplications}>
+                      <FaClipboardList />
+                      <p>У вас пока нет активных заявок на вклады.</p>
+                      <button 
+                        className={styles.editButton}
+                        onClick={() => router.push('/deposits/apply')}
+                      >
+                        Оформить вклад
+                      </button>
+                    </div>
+                  )
+                )}
+              </>
             )}
           </motion.div>
         </section>

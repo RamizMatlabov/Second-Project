@@ -206,13 +206,41 @@
   margin-top: 2.5rem;
   display: flex;
   flex-direction: column;
-  gap: 5rem;
+  gap: 1.5rem; // Уменьшаем gap, так как вкладки будут ближе к заголовку
 
   h2 {
     font-size: 1.8rem;
     font-weight: 700;
     color: var(--text-main);
     margin-bottom: 0.5rem;
+  }
+}
+
+.tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.tabButton {
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: var(--text-secondary);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    border-color: var(--accent-color);
+    color: var(--text-main);
+  }
+
+  &.activeTab {
+    background: var(--accent-color);
+    color: var(--primary-color);
+    border-color: var(--accent-color);
   }
 }
 

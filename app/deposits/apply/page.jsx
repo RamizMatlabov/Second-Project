@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import styles from '../page.module.scss';
+import styles from './apply.module.scss';
 import { useAuth } from '../../context/AuthContext';
 import { db } from '../../firebase/config';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
@@ -24,21 +24,21 @@ const staggerContainer = {
   },
 };
 
-const initialFormState = (cardFromQuery = '') => ({
+const initialFormState = (depositFromQuery = '') => ({
   fullName: '',
   phone: '',
   email: '',
-  cardType: cardFromQuery,
+  depositType: depositFromQuery,
   pickupPoint: '',
 });
 
-export default function CardApplyPage() {
+export default function DepositApplyPage() {
   const { user } = useAuth();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const cardFromQuery = searchParams.get('card') || '';
+  const depositFromQuery = searchParams.get('deposit') || ''; // Изменено на 'deposit'
 
-  const [formData, setFormData] = useState(() => initialFormState(cardFromQuery));
+  const [formData, setFormData] = useState(() => initialFormState(depositFromQuery));
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState({ type: null, message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -83,8 +83,8 @@ export default function CardApplyPage() {
       newErrors.email = 'Укажите корректный e‑mail.';
     }
 
-    if (!data.cardType.trim()) {
-      newErrors.cardType = 'Пожалуйста, укажите тип карты.';
+    if (!data.depositType.trim()) { // Изменено на depositType
+      newErrors.depositType = 'Пожалуйста, укажите тип вклада.'; // Изменено сообщение
     }
 
     if (!data.pickupPoint.trim()) {
@@ -120,17 +120,17 @@ export default function CardApplyPage() {
         userName: formData.fullName,
         phone: formData.phone,
         email: formData.email,
-        cardType: formData.cardType,
+        depositType: formData.depositType, // Изменено на depositType
         pickupPoint: formData.pickupPoint,
         status: 'pending',
-        applicationType: 'card', // Добавляем тип заявки
+        applicationType: 'deposit', // Добавляем тип заявки как 'deposit'
         createdAt: serverTimestamp(),
       }).catch(err => {
         console.error('Firestore error (non-blocking):', err);
         return null; // Не блокируем процесс, если Firestore подвел
       });
 
-      const apiPromise = fetch('/api/cards', {
+      const apiPromise = fetch('/api/deposits', { // Изменено на /api/deposits
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -165,10 +165,10 @@ export default function CardApplyPage() {
             userName: formData.fullName,
             phone: formData.phone,
             email: formData.email,
-            cardType: formData.cardType,
+            depositType: formData.depositType, // Изменено на depositType
             pickupPoint: formData.pickupPoint,
             status: 'pending',
-            applicationType: 'card', // Добавляем тип заявки
+            applicationType: 'deposit', // Добавляем тип заявки как 'deposit'
             createdAt: new Date().toISOString()
           });
           window.localStorage.setItem('safepoint_applications_local', JSON.stringify(arr));
@@ -176,7 +176,7 @@ export default function CardApplyPage() {
       } catch (e) {}
 
       setFormData((prev) => ({
-        ...initialFormState(prev.cardType),
+        ...initialFormState(prev.depositType), // Изменено на depositType
       }));
 
       // Перенаправляем быстрее
@@ -203,9 +203,9 @@ export default function CardApplyPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
         >
-          <h1>Оформление банковской карты</h1>
+          <h1>Оформление вклада</h1> {/* Изменено название */}
           <p>
-            Заполните форму ниже, чтобы отправить заявку на оформление карты SafePoint Bank.
+            Заполните форму ниже, чтобы отправить заявку на открытие вклада SafePoint Bank. {/* Изменено описание */}
           </p>
         </motion.div>
       </section>
@@ -293,32 +293,32 @@ export default function CardApplyPage() {
               </div>
 
               <div className={styles.formField}>
-                <label htmlFor="cardType">Тип карты *</label>
-                {cardFromQuery ? (
+                <label htmlFor="depositType">Тип вклада *</label> {/* Изменено на Тип вклада */}
+                {depositFromQuery ? ( // Изменено на depositFromQuery
                   <>
                     <input
-                      id="cardType"
-                      name="cardType"
+                      id="depositType" // Изменено на depositType
+                      name="depositType" // Изменено на depositType
                       type="text"
-                      value={formData.cardType}
+                      value={formData.depositType} // Изменено на depositType
                       readOnly
                     />
                     <small className={styles.fieldHint}>
-                      Тип карты выбран на предыдущей странице и не может быть изменён.
+                      Тип вклада выбран на предыдущей странице и не может быть изменён. {/* Изменено сообщение */}
                     </small>
                   </>
                 ) : (
                   <input
-                    id="cardType"
-                    name="cardType"
+                    id="depositType" // Изменено на depositType
+                    name="depositType" // Изменено на depositType
                     type="text"
-                    value={formData.cardType}
+                    value={formData.depositType} // Изменено на depositType
                     onChange={handleChange}
-                    placeholder="Например, SafePoint Bank HUMO"
+                    placeholder="Например, Сберегательный" // Изменено placeholder
                   />
                 )}
-                {errors.cardType && (
-                  <span className={styles.fieldError}>{errors.cardType}</span>
+                {errors.depositType && ( // Изменено на depositType
+                  <span className={styles.fieldError}>{errors.depositType}</span>
                 )}
               </div>
             </div>
