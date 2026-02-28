@@ -63,11 +63,8 @@ export default function ProfilePage() {
 
     const fetchDetails = async () => {
       try {
-        if (typeof navigator !== 'undefined' && !navigator.onLine) {
-          return;
-        }
-
         const ref = doc(db, 'users', user.uid);
+        // С включенным persistence getDoc вернет данные из кэша, если мы оффлайн
         const snap = await getDoc(ref);
         if (snap.exists()) {
           const data = snap.data();
@@ -76,9 +73,15 @@ export default function ProfilePage() {
             address: data.address || '',
             bio: data.bio || ''
           });
+          
+          // Обновляем localStorage для консистентности
+          if (typeof window !== 'undefined') {
+            window.localStorage.setItem('safepoint_profile_cache', JSON.stringify(data));
+          }
         }
       } catch (e) {
-        console.error('Failed to load profile details', e);
+        console.error('Failed to load profile details:', e);
+        // В случае ошибки у нас уже есть данные из localStorage в инициализации useState
       }
     };
 

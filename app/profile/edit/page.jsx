@@ -100,12 +100,10 @@ export default function EditProfilePage() {
 
     const loadProfile = async () => {
       try {
-        if (typeof navigator !== 'undefined' && !navigator.onLine) {
-          return;
-        }
-
         const ref = doc(db, 'users', user.uid);
+        // getDoc будет пытаться получить данные из кэша, если мы оффлайн (так как мы включили persistence)
         const snap = await getDoc(ref);
+        
         if (snap.exists()) {
           const data = snap.data();
           setFormData({
@@ -113,9 +111,16 @@ export default function EditProfilePage() {
             address: data.address || '',
             bio: data.bio || ''
           });
+          
+          // Сохраняем в кэш для оффлайн режима (дополнительно к Firestore persistence)
+          if (typeof window !== 'undefined') {
+            window.localStorage.setItem('safepoint_profile_cache', JSON.stringify(data));
+          }
         }
       } catch (e) {
-        console.error('Failed to load profile', e);
+        console.error('Failed to load profile:', e);
+        // В случае ошибки (например, оффлайн и нет в кэше Firestore), 
+        // у нас уже есть данные из localStorage в инициализации useState
       }
     };
 
