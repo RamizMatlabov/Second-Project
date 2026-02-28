@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect, useCallback } from 'react';
 import styles from './DepositCalculator.module.scss';
-import { FaTimes } from 'react-icons/fa';
+import { FaTimes, FaSpinner, FaCheckCircle } from 'react-icons/fa';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
@@ -12,6 +12,8 @@ const DepositCalculator = ({ isOpen, onClose, deposit }) => {
   const [term, setTerm] = useState(12);
   const [income, setIncome] = useState(0);
   const [totalAmount, setTotalAmount] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   useEffect(() => {
     if (deposit) {
@@ -54,9 +56,19 @@ const DepositCalculator = ({ isOpen, onClose, deposit }) => {
     }).format(value);
   };
 
-  const handleOpenDeposit = () => {
-    alert('Заявка на открытие вклада принята!');
-    onClose();
+  const handleOpenDeposit = async () => {
+    setIsLoading(true);
+    // Simulate an API call
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    setIsLoading(false);
+    setShowSuccessModal(true);
+    // Optionally close the calculator modal after a delay or user action
+    // onClose();
+  };
+
+  const handleCloseSuccessModal = () => {
+    setShowSuccessModal(false);
+    onClose(); // Close the main calculator modal as well
   };
 
   if (!deposit) return null;
@@ -82,74 +94,100 @@ const DepositCalculator = ({ isOpen, onClose, deposit }) => {
             <button className={styles.closeButton} onClick={onClose}>
               <FaTimes />
             </button>
-            <h2 className={styles.title}>Калькулятор вклада "{deposit.name}"</h2>
-
-            <div className={styles.inputGroup}>
-              <label htmlFor="amount">Сумма вклада:</label>
-              <input
-                type="text"
-                id="amount"
-                value={formatCurrency(amount)}
-                onChange={handleManualAmountChange}
-                className={styles.textInput}
-              />
-              <Slider
-                min={1000000}
-                max={500000000}
-                step={1000000}
-                value={amount}
-                onChange={handleAmountChange}
-                className={styles.slider}
-                trackStyle={{ backgroundColor: 'var(--accent-color)' }}
-                handleStyle={{ borderColor: 'var(--accent-color)', backgroundColor: 'white' }}
-                railStyle={{ backgroundColor: 'var(--glass-border)' }}
-              />
-              <div className={styles.sliderLabels}>
-                <span>{formatCurrency(1000000)}</span>
-                <span>{formatCurrency(500000000)}</span>
+            {isLoading ? (
+              <div className={styles.loadingIndicator}>
+                <FaSpinner className={styles.spinner} />
+                <p>Обработка заявки...</p>
               </div>
-            </div>
+            ) : showSuccessModal ? (
+              <motion.div
+                className={styles.successModalContent}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ type: 'spring', damping: 20, stiffness: 300 }}
+              >
+                <FaCheckCircle className={styles.successIcon} />
+                <h2 className={styles.successTitle}>Заявка на открытие вклада принята!</h2>
+                <p className={styles.successMessage}>
+                  В ближайшее время с вами свяжется наш менеджер для уточнения деталей.
+                </p>
+                <button className={styles.closeSuccessModalButton} onClick={handleCloseSuccessModal}>
+                  Отлично
+                </button>
+              </motion.div>
+            ) : (
+              <>
+                <h2 className={styles.title}>Калькулятор вклада "{deposit.name}"</h2>
 
-            <div className={styles.inputGroup}>
-              <label htmlFor="term">Срок вклада (месяцев):</label>
-              <input
-                type="text"
-                id="term"
-                value={term}
-                onChange={(e) => setTerm(parseInt(e.target.value, 10) || 0)}
-                className={styles.textInput}
-              />
-              <Slider
-                min={deposit.minTerm}
-                max={deposit.maxTerm}
-                step={1}
-                value={term}
-                onChange={handleTermChange}
-                className={styles.slider}
-                trackStyle={{ backgroundColor: 'var(--accent-color)' }}
-                handleStyle={{ borderColor: 'var(--accent-color)', backgroundColor: 'white' }}
-                railStyle={{ backgroundColor: 'var(--glass-border)' }}
-              />
-              <div className={styles.sliderLabels}>
-                <span>{deposit.minTerm} мес.</span>
-                <span>{deposit.maxTerm} мес.</span>
-              </div>
-            </div>
+                <div className={styles.inputGroup}>
+                  <label htmlFor="amount">Сумма вклада:</label>
+                  <input
+                    type="text"
+                    id="amount"
+                    value={formatCurrency(amount)}
+                    onChange={handleManualAmountChange}
+                    className={styles.textInput}
+                  />
+                  <Slider
+                    min={1000000}
+                    max={500000000}
+                    step={1000000}
+                    value={amount}
+                    onChange={handleAmountChange}
+                    className={styles.slider}
+                    trackStyle={{ backgroundColor: 'var(--accent-color)' }}
+                    handleStyle={{ borderColor: 'var(--accent-color)', backgroundColor: 'white' }}
+                    railStyle={{ backgroundColor: 'var(--glass-border)' }}
+                  />
+                  <div className={styles.sliderLabels}>
+                    <span>{formatCurrency(1000000)}</span>
+                    <span>{formatCurrency(500000000)}</span>
+                  </div>
+                </div>
 
-            <div className={styles.results}>
-              <div className={styles.resultItem}>
-                <span>Доход:</span>
-                <span className={styles.resultValue}>{formatCurrency(income)}</span>
-              </div>
-              <div className={styles.resultItem}>
-                <span>Итоговая сумма:</span>
-                <span className={styles.resultValue}>{formatCurrency(totalAmount)}</span>
-              </div>
-            </div>
+                <div className={styles.inputGroup}>
+                  <label htmlFor="term">Срок вклада (месяцев):</label>
+                  <input
+                    type="text"
+                    id="term"
+                    value={term}
+                    onChange={(e) => setTerm(parseInt(e.target.value, 10) || 0)}
+                    className={styles.textInput}
+                  />
+                  <Slider
+                    min={deposit.minTerm}
+                    max={deposit.maxTerm}
+                    step={1}
+                    value={term}
+                    onChange={handleTermChange}
+                    className={styles.slider}
+                    trackStyle={{ backgroundColor: 'var(--accent-color)' }}
+                    handleStyle={{ borderColor: 'var(--accent-color)', backgroundColor: 'white' }}
+                    railStyle={{ backgroundColor: 'var(--glass-border)' }}
+                  />
+                  <div className={styles.sliderLabels}>
+                    <span>{deposit.minTerm} мес.</span>
+                    <span>{deposit.maxTerm} мес.</span>
+                  </div>
+                </div>
 
-            <button className={styles.openDepositButton} onClick={handleOpenDeposit}>
-              Открыть вклад
-            </button>
+                <div className={styles.results}>
+                  <div className={styles.resultItem}>
+                    <span>Доход:</span>
+                    <span className={styles.resultValue}>{formatCurrency(income)}</span>
+                  </div>
+                  <div className={styles.resultItem}>
+                    <span>Итоговая сумма:</span>
+                    <span className={styles.resultValue}>{formatCurrency(totalAmount)}</span>
+                  </div>
+                </div>
+
+                <button className={styles.openDepositButton} onClick={handleOpenDeposit} disabled={isLoading}>
+                  Открыть вклад
+                </button>
+              </>
+            )}
           </motion.div>
         </motion.div>
       )}

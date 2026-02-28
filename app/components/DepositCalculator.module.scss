@@ -168,5 +168,84 @@
       background: var(--accent-hover);
       box-shadow: 0 0 20px var(--accent-glow);
     }
+
+    &:disabled {
+      background: var(--glass-border);
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+  }
+
+  .loadingIndicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 3rem 0;
+    color: var(--accent-color);
+
+    .spinner {
+      font-size: 3rem;
+      animation: spin 1s linear infinite;
+    }
+
+    p {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+  }
+
+  .successModalContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem 0;
+    gap: 1rem;
+
+    .successIcon {
+      font-size: 4rem;
+      color: var(--success);
+    }
+
+    .successTitle {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .successMessage {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      max-width: 350px;
+    }
+
+    .closeSuccessModalButton {
+      padding: 0.8rem 1.5rem;
+      background: var(--accent-color);
+      color: var(--primary-color);
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-normal);
+      margin-top: 1.5rem;
+
+      &:hover {
+        background: var(--accent-hover);
+      }
+    }
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 }
