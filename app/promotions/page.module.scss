@@ -278,4 +278,109 @@
   }
 }
 
+/* Modal */
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 37, 64, 0.65);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1.5rem;
+}
+
+.modalContainer {
+  width: 100%;
+  max-width: 720px;
+  background: var(--primary-color);
+  color: #fff;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.modalTitle {
+  font-size: 1.4rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.modalClose {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--accent-color);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  @include hover-scale;
+  @include hover-glow;
+}
+
+.modalBody {
+  padding: 1.25rem 1.5rem 0;
+}
+
+.termsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+
+  li {
+    position: relative;
+    padding-left: 1.25rem;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.5;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.6rem;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.12);
+    }
+  }
+}
+
+.modalFooter {
+  padding: 1.25rem 1.5rem 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modalAction {
+  padding: 0.9rem 1.8rem;
+  background: var(--accent-color);
+  color: var(--primary-color);
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  @include hover-scale;
+  @include hover-glow;
+}
+
+@media (max-width: 480px) {
+  .modalContainer {
+    max-width: 100%;
+  }
+}
+
 
