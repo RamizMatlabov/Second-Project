@@ -1,0 +1,98 @@
+@use "../mixins.scss" as *;
+
+.calculator {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
+  color: #fff;
+
+  .header {
+    margin-bottom: 0.5rem;
+    h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+      color: var(--accent-color);
+    }
+    .rate {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      opacity: 0.8;
+    }
+  }
+
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    .labelRow {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1rem;
+      font-weight: 500;
+
+      .value {
+        color: var(--accent-color);
+        font-weight: 700;
+      }
+    }
+
+    .rangeLabels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--text-light);
+      opacity: 0.6;
+      margin-top: 0.25rem;
+    }
+  }
+
+  .result {
+    margin-top: 1rem;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--accent-color);
+
+    .resultItem {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      span:first-child {
+        font-size: 0.9rem;
+        color: var(--text-light);
+      }
+
+      .paymentValue {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--accent-color);
+      }
+    }
+  }
+
+  .applyButton {
+    @include hover-lift;
+    @include hover-glow;
+    
+    background: var(--accent-color);
+    color: var(--primary-dark);
+    border: none;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 1rem;
+    width: 100%;
+  }
+
+  /* Override rc-slider styles for consistency */
+  :global(.rc-slider-handle:active) {
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.6) !important;
+    transform: scale(1.1) !important;
+  }
+}

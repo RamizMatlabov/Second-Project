@@ -98,61 +98,179 @@
   border-radius: var(--radius-lg);
   padding: 2.4rem 2rem;
   border: 1px solid var(--border-color);
-  box-shadow: var(--shadow-lg);
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
-  transition: all 0.1s ease;
+  height: 100%;
+  transition: border-color 0.3s ease;
+  box-shadow: var(--shadow-lg);
 
   &:hover {
     border-color: var(--accent-color);
     box-shadow: 0 24px 48px rgba(0, 0, 0, 0.25);
   }
 
+  .icon {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
+  }
+
   h3 {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     font-weight: 700;
+    margin-bottom: 1rem;
     color: var(--text-main);
+  }
+
+  .description {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+    font-size: 0.98rem;
+  }
+
+  .note {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: var(--radius-sm);
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+
+  .primaryButton {
+    @include hover-lift;
+    @include hover-glow;
+    
+    background: var(--accent-color);
+    color: var(--primary-dark);
+    border: none;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    margin-top: auto;
   }
 }
 
-.icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 16px;
-  background: rgba(0, 212, 255, 0.12);
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 37, 64, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--accent-color);
-  font-size: 1.6rem;
+  padding: 2rem;
 }
 
-.description {
-  color: var(--text-secondary);
-  font-size: 0.98rem;
-  line-height: 1.6;
+.modalContent {
+  background: var(--primary-dark);
+  width: 100%;
+  max-width: 500px;
+  border-radius: var(--radius-lg);
+  padding: 3rem 2rem 2.5rem;
+  position: relative;
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
-.note {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-  opacity: 0.9;
-}
-
-.primaryButton {
-  margin-top: 1.2rem;
-  align-self: flex-start;
-  padding: 0.9rem 2.1rem;
-  background: var(--accent-color);
-  color: var(--primary-color);
-  border-radius: var(--radius-md);
+.closeBtn {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: none;
   border: none;
-  font-weight: 600;
-  font-size: 0.98rem;
+  color: var(--text-light);
+  font-size: 1.5rem;
   cursor: pointer;
+  transition: color 0.2s;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: var(--accent-color);
+  }
+}
+
+.loadingState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 2rem 0;
+
+  p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+  }
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(0, 212, 255, 0.1);
+  border-top-color: var(--accent-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.successState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  padding: 1rem 0;
+
+  .successIcon {
+    font-size: 4rem;
+    color: #10b981;
+    margin-bottom: 0.5rem;
+  }
+
+  h3 {
+    font-size: 1.8rem;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  p {
+    color: var(--text-light);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.confirmBtn {
   @include hover-lift;
-  @include hover-glow;
+  background: transparent;
+  border: 2px solid var(--accent-color);
+  color: var(--accent-color);
+  padding: 0.8rem 2.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  &:hover {
+    background: var(--accent-color);
+    color: var(--primary-dark);
+  }
 }
 
 @media (max-width: 768px) {
