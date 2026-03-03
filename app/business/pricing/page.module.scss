@@ -3,7 +3,7 @@
 .container {
   min-height: 100vh;
   padding: 80px 20px;
-  background: linear-gradient(170deg, #f3f6f9 0%, #e7eef5 100%);
+  background: var(--bg-color);
 }
 
 .header {
@@ -13,13 +13,13 @@
   h1 {
     font-size: 42px;
     font-weight: 800;
-    color: #0a2540;
+    color: var(--text-main);
     margin-bottom: 16px;
   }
 
   p {
     font-size: 18px;
-    color: #64748b;
+    color: var(--text-secondary);
     max-width: 600px;
     margin: 0 auto;
   }
@@ -28,11 +28,11 @@
 .tableWrapper {
   max-width: 1200px;
   margin: 0 auto;
-  background: white;
-  border-radius: 24px;
-  box-shadow: 0 20px 40px -15px rgba(10, 37, 64, 0.15);
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--border-color);
 }
 
 .pricingTable {
@@ -42,40 +42,43 @@
 
   th, td {
     padding: 24px;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid var(--border-color);
     vertical-align: middle;
+    color: var(--text-main);
   }
 
   th {
-    background: #fcfdfe;
+    background: var(--bg-color);
     vertical-align: top;
-    border-bottom: 2px solid #e2e8f0;
+    border-bottom: 2px solid var(--border-color);
   }
 
   .featureCol {
     text-align: left;
     width: 300px;
-    color: #0a2540;
+    color: var(--text-main);
     font-weight: 600;
     position: sticky;
     left: 0;
-    background: #fcfdfe;
+    background: var(--bg-color);
+    z-index: 2;
   }
 
   .featureName {
     text-align: left;
-    color: #475569;
+    color: var(--text-secondary);
     font-size: 15px;
     display: flex;
     align-items: center;
     gap: 8px;
     position: sticky;
     left: 0;
-    background: white;
+    background: var(--bg-card);
     width: 300px;
+    z-index: 1;
 
     .infoIcon {
-      color: #94a3b8;
+      color: var(--text-light);
       font-size: 16px;
       cursor: help;
     }
@@ -87,119 +90,118 @@
 
     h3 {
       font-size: 22px;
-      color: #0a2540;
+      color: var(--text-main);
       margin-bottom: 12px;
+      font-weight: 700;
     }
 
     .price {
       font-size: 28px;
       font-weight: 800;
-      color: #0a2540;
+      color: var(--text-main);
       margin-bottom: 24px;
 
       span {
         font-size: 14px;
-        font-weight: 500;
-        color: #64748b;
+        color: var(--text-secondary);
+        font-weight: 400;
       }
     }
 
     &.recommended {
-      background: rgba(0, 212, 255, 0.03);
-      border-radius: 12px;
-      margin: -10px;
-      padding: 30px 10px;
-      border: 2px solid var(--accent-color);
-
-      .popularBadge {
-        position: absolute;
-        top: -15px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: var(--accent-color);
-        color: white;
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 12px;
-        font-weight: 700;
-        text-transform: uppercase;
+      background: rgba(0, 212, 255, 0.05);
+      
+      h3 {
+        color: var(--accent-color);
       }
     }
+  }
+
+  .popularBadge {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent-color);
+    color: #ffffff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: var(--shadow-glow);
   }
 
   .planButton {
     display: inline-block;
     padding: 10px 24px;
-    background: #0a2540;
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-size: 14px;
+    background: var(--primary-color);
+    color: #ffffff;
+    border-radius: var(--radius-md);
     font-weight: 600;
-    transition: all 0.3s;
+    font-size: 14px;
     @include hover-lift;
-
-    &:hover {
-      background: #1e293b;
-    }
+    @include hover-glow;
   }
 
   .recommendedCol {
     background: rgba(0, 212, 255, 0.02);
     font-weight: 600;
-    color: #0a2540;
+    color: var(--text-main);
   }
 
   .checkIcon {
-    color: #10b981;
+    color: var(--success);
     font-size: 24px;
   }
 
   .closeIcon {
-    color: #ef4444;
-    font-size: 24px;
+    color: var(--text-light);
+    font-size: 20px;
+    opacity: 0.5;
   }
 }
 
 .faq {
-  max-width: 1000px;
+  max-width: 800px;
   margin: 80px auto 0;
-  text-align: center;
 
   h2 {
+    text-align: center;
     font-size: 32px;
-    color: #0a2540;
+    color: var(--text-main);
     margin-bottom: 40px;
   }
 }
 
 .faqGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-  text-align: left;
+  gap: 24px;
+}
 
-  .faqItem {
-    background: white;
-    padding: 24px;
-    border-radius: 16px;
-    border: 1px solid #e2e8f0;
-    transition: all 0.3s;
+.faqItem {
+  padding: 24px;
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  transition: var(--transition-normal);
 
-    &:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 20px -10px rgba(10, 37, 64, 0.1);
-    }
+  &:hover {
+    border-color: var(--accent-color);
+    box-shadow: var(--shadow-md);
+  }
 
-    h4 {
-      font-size: 18px;
-      color: #1e293b;
-      margin-bottom: 12px;
-    }
-    p {
-      color: #64748b;
-      line-height: 1.6;
-    }
+  h4 {
+    font-size: 18px;
+    color: var(--text-main);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  p {
+    color: var(--text-secondary);
+    line-height: 1.6;
   }
 }
 
