@@ -1,9 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { MdBusinessCenter, MdTrendingUp, MdSecurity, MdSpeed, MdDone, MdAccountBalance, MdCreditCard, MdStar } from 'react-icons/md';
 import styles from './page.module.scss';
+import LeadModal from '../components/LeadModal';
 
 const plans = [
   {
@@ -54,6 +56,15 @@ const stats = [
 ];
 
 const BusinessPage = () => {
+  const [isLeadModalOpen, setIsLeadModalOpen] = useState(false);
+
+  const scrollToAdvantages = () => {
+    const element = document.getElementById('business-advantages');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className={styles.container}>
       <header className={styles.hero}>
@@ -67,8 +78,8 @@ const BusinessPage = () => {
           <h1>Ваш бизнес заслуживает лучшего банкинга</h1>
           <p>Откройте счет онлайн за 10 минут и получите доступ к экосистеме сервисов для роста вашего дела.</p>
           <div className={styles.heroActions}>
-            <button className={styles.ctaButton}>Открыть счет</button>
-            <button className={styles.secondaryButton}>Узнать больше</button>
+            <Link href="/business/open-account" className={styles.ctaButton}>Открыть счет</Link>
+            <button className={styles.secondaryButton} onClick={scrollToAdvantages}>Узнать больше</button>
           </div>
         </motion.div>
         <div className={styles.heroGlow}></div>
@@ -92,7 +103,7 @@ const BusinessPage = () => {
         </div>
       </section>
 
-      <section className={styles.features}>
+      <section id="business-advantages" className={styles.features}>
         <motion.div 
           className={styles.sectionHeader}
           initial={{ opacity: 0 }}
@@ -162,7 +173,7 @@ const BusinessPage = () => {
                   </li>
                 ))}
               </ul>
-              <button className={styles.planButton}>Выбрать тариф</button>
+              <Link href="/business/pricing" className={styles.planButton}>Выбрать тариф</Link>
             </motion.div>
           ))}
         </div>
@@ -179,10 +190,20 @@ const BusinessPage = () => {
             <MdBusinessCenter className={styles.ctaIcon} />
             <h2>Готовы вывести бизнес на новый уровень?</h2>
             <p>Присоединяйтесь к 50,000+ предпринимателей, которые уже доверили нам свои финансы.</p>
-            <button className={styles.ctaButton}>Оставить заявку</button>
+            <button 
+              className={styles.ctaButton}
+              onClick={() => setIsLeadModalOpen(true)}
+            >
+              Оставить заявку
+            </button>
           </div>
         </motion.div>
       </section>
+
+      <LeadModal 
+        isOpen={isLeadModalOpen} 
+        onClose={() => setIsLeadModalOpen(false)} 
+      />
     </div>
   );
 };

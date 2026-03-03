@@ -74,6 +74,10 @@
 }
 
 .ctaButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
   background: var(--accent-color);
   color: white;
   padding: 1.1rem 2.5rem;
@@ -86,6 +90,10 @@
 }
 
 .secondaryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
   background: rgba(255, 255, 255, 0.05);
   color: var(--text-main);
   padding: 1.1rem 2.5rem;
@@ -311,6 +319,10 @@
 }
 
 .planButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
   margin-top: auto;
   padding: 1.2rem;
   border-radius: var(--radius-md);
