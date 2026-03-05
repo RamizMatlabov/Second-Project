@@ -9,13 +9,12 @@
   background: rgba(10, 37, 64, 0.4);
   backdrop-filter: blur(var(--glass-blur));
   z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .modal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   width: 90%;
   max-width: 500px;
   background: var(--bg-card);
@@ -26,6 +25,7 @@
   overflow-y: auto;
   max-height: 90vh;
   border: 1px solid var(--border-color);
+  position: relative; 
 }
 
 .closeButton {
@@ -115,7 +115,7 @@
 .submitButton {
   width: 100%;
   padding: 16px;
-  background-color: var(--primary-color);
+  background-color: var(--accent-color);
   color: #ffffff;
   border: none;
   border-radius: var(--radius-md);
