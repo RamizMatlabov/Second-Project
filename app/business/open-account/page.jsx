@@ -30,13 +30,34 @@ const OpenAccountPage = () => {
   const handleNext = () => setCurrentStep(prev => Math.min(prev + 1, steps.length));
   const handleBack = () => setCurrentStep(prev => Math.max(prev - 1, 1));
 
+  const isStepValid = () => {
+    switch (currentStep) {
+      case 1:
+        return formData.companyName.trim() !== '' && formData.inn.trim() !== '' && formData.address.trim() !== '';
+      case 2:
+        return formData.fullName.trim() !== '' && formData.phone.trim() !== '' && formData.email.trim() !== '';
+      case 3:
+        return formData.plan !== '';
+      case 4:
+        return formData.files.length > 0;
+      case 5:
+        return true;
+      default:
+        return false;
+    }
+  };
+
   const handleSubmit = () => {
     setIsModalOpen(true);
   };
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    const { name, value, type, files } = e.target;
+    if (type === 'file') {
+      setFormData(prev => ({ ...prev, files: Array.from(files) }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
   };
 
   const renderStep = () => {
@@ -161,8 +182,14 @@ const OpenAccountPage = () => {
             <p>Загрузите скан-копии Устава и Свидетельства о регистрации</p>
             <div className={styles.uploadArea}>
               <MdUploadFile className={styles.uploadIcon} />
-              <p>Перетащите файлы сюда или нажмите для выбора</p>
-              <input type="file" multiple className={styles.fileInput} />
+              <p>{formData.files.length > 0 ? `Выбрано файлов: ${formData.files.length}` : 'Перетащите файлы сюда или нажмите для выбора'}</p>
+              <input 
+                type="file" 
+                name="files" 
+                multiple 
+                className={styles.fileInput} 
+                onChange={handleChange}
+              />
             </div>
           </motion.div>
         );
@@ -232,6 +259,7 @@ const OpenAccountPage = () => {
           <button 
             className={styles.nextButton} 
             onClick={currentStep === 5 ? handleSubmit : handleNext}
+            disabled={!isStepValid()}
           >
             {currentStep === 5 ? 'Отправить заявку' : 'Далее'} <MdArrowForward />
           </button>
