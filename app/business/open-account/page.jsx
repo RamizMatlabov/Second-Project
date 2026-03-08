@@ -15,6 +15,7 @@ const steps = [
 
 const OpenAccountPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     companyName: '',
     inn: '',
@@ -28,6 +29,10 @@ const OpenAccountPage = () => {
 
   const handleNext = () => setCurrentStep(prev => Math.min(prev + 1, steps.length));
   const handleBack = () => setCurrentStep(prev => Math.max(prev - 1, 1));
+
+  const handleSubmit = () => {
+    setIsModalOpen(true);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -226,12 +231,38 @@ const OpenAccountPage = () => {
           </button>
           <button 
             className={styles.nextButton} 
-            onClick={currentStep === 5 ? () => alert('Заявка отправлена!') : handleNext}
+            onClick={currentStep === 5 ? handleSubmit : handleNext}
           >
             {currentStep === 5 ? 'Отправить заявку' : 'Далее'} <MdArrowForward />
           </button>
         </div>
       </div>
+
+      <AnimatePresence>
+        {isModalOpen && (
+          <div className={styles.modalOverlay} onClick={() => setIsModalOpen(false)}>
+            <motion.div 
+              className={styles.modalContent}
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className={styles.successIconWrapper}>
+                <MdCheckCircle className={styles.successIcon} />
+              </div>
+              <h2>Заявка принята!</h2>
+              <p>Ваша заявка на открытие счета успешно отправлена. Наш менеджер свяжется с вами в течение 15 минут.</p>
+              <button 
+                className={styles.modalCloseButton}
+                onClick={() => setIsModalOpen(false)}
+              >
+                Понятно
+              </button>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

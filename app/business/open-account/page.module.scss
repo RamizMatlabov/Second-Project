@@ -1,6 +1,7 @@
 @use '../../mixins' as *;
 
 .container {
+  margin-top: 50px;
   min-height: 100vh;
   padding: 60px 20px;
   background: var(--bg-color);
@@ -359,5 +360,81 @@
     color: #ffffff;
     font-weight: 600;
     @include hover-lift;
+  }
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 37, 64, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modalContent {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  padding: 48px 40px;
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border-color);
+  position: relative;
+
+  h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 24px 0 16px;
+  }
+
+  p {
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 32px;
+    font-size: 16px;
+  }
+}
+
+.successIconWrapper {
+  width: 80px;
+  height: 80px;
+  background: var(--accent-glow);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.successIcon {
+  font-size: 48px;
+  color: var(--accent-color);
+}
+
+.modalCloseButton {
+  width: 100%;
+  padding: 16px;
+  background: var(--accent-color);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-normal);
+  @include hover-lift;
+  @include hover-glow;
+
+  &:hover {
+    background: var(--accent-hover);
   }
 }
