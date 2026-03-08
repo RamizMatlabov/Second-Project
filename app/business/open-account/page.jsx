@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MdBusiness, MdPerson, MdCreditCard, MdUploadFile, MdCheckCircle, MdArrowBack, MdArrowForward } from 'react-icons/md';
 import styles from './page.module.scss';
@@ -14,6 +15,7 @@ const steps = [
 ];
 
 const OpenAccountPage = () => {
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -283,7 +285,7 @@ const OpenAccountPage = () => {
               <p>Ваша заявка на открытие счета успешно отправлена. Наш менеджер свяжется с вами в течение 15 минут.</p>
               <button 
                 className={styles.modalCloseButton}
-                onClick={() => setIsModalOpen(false)}
+                onClick={() => router.push('/business')}
               >
                 Понятно
               </button>
