@@ -71,6 +71,12 @@ const LocationsPage = () => {
     return matchesSearch && matchesFilter;
   });
 
+  const handleRouteClick = (address) => {
+    const encodedAddress = encodeURIComponent(address);
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${encodedAddress}`;
+    window.open(url, '_blank');
+  };
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -206,7 +212,7 @@ const LocationsPage = () => {
                         <span key={i} className={styles.tag}>{f}</span>
                       ))}
                     </div>
-                    <button className={styles.routeBtn}>Маршрут</button>
+                    <button className={styles.routeBtn} onClick={() => handleRouteClick(loc.address)}>Маршрут</button>
                   </div>
                 </motion.div>
               ))
