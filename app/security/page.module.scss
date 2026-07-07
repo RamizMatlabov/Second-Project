@@ -386,7 +386,7 @@
   }
 }
 
-@media (max-width: 1024px) {
+@include tablet {
   .emergencyContent {
     flex-direction: column;
     padding: 3rem;
@@ -402,7 +402,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@include mobile {
   .hero {
     min-height: 50vh;
   }
@@ -428,5 +428,21 @@
     .phone {
       font-size: 1.5rem;
     }
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@include small-mobile {
+  .heroContent h1 {
+    font-size: 2rem;
+  }
+  .container {
+    padding: 0 1rem;
+  }
+  .card, .tipCard {
+    padding: 2rem 1.5rem;
   }
 }

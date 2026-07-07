@@ -342,7 +342,7 @@
   letter-spacing: 0.01em;
 }
 
-@media (max-width: 968px) {
+@include tablet {
   .timeline {
     grid-template-columns: repeat(2, 1fr);
     
@@ -357,7 +357,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@include mobile {
   .heroContent h1 {
     font-size: 2.5rem;
   }
@@ -379,5 +379,11 @@
   .valuesGrid,
   .teamGrid {
     grid-template-columns: 1fr;
+  }
+}
+
+@include small-mobile {
+  .heroContent h1 {
+    font-size: 2rem;
   }
 }

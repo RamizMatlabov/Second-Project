@@ -413,7 +413,7 @@
   }
 }
 
-@media (max-width: 1024px) {
+@include tablet {
   .cardsGrid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -423,7 +423,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@include mobile {
   .container {
     padding: 60px 0 80px;
   }
@@ -445,6 +445,15 @@
     h2 {
       font-size: 28px;
     }
+  }
+}
+
+@include small-mobile {
+  .tableWrapper {
+    overflow-x: scroll;
+  }
+  .ctaActions {
+    flex-direction: column;
   }
 }
 

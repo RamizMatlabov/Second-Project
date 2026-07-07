@@ -136,7 +136,77 @@
   &::after { top: 8px; }
 }
 
-@media (max-width: 768px) {
+.mobileMenuButton.open {
+  .menuIcon {
+    background: transparent;
+    
+    &::before {
+      transform: rotate(45deg);
+      top: 0;
+    }
+    
+    &::after {
+      transform: rotate(-45deg);
+      top: 0;
+    }
+  }
+}
+
+.mobileMenu {
+  display: none;
+}
+
+.mobileNavLink {
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 500;
+  font-size: 1.25rem;
+  transition: all var(--transition-normal);
+  padding: 0.5rem 0;
+  text-decoration: none;
+
+  &:hover, &.active {
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+  }
+}
+
+.mobileAuthButton {
+  padding: 0.75rem 1.75rem;
+  background: var(--accent-color);
+  color: var(--primary-color);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+  
+  @include hover-lift;
+  
+  &:hover {
+    background: #ffffff;
+    color: var(--primary-color);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+  }
+}
+
+@include tablet {
+  .container {
+    padding: 0 1.5rem;
+  }
+
+  .navLinks {
+    gap: 1.5rem;
+  }
+
+  .authButton {
+    padding: 0.6rem 1.25rem;
+    font-size: 0.9rem;
+  }
+}
+
+@include mobile {
   .container {
     display: flex;
     justify-content: space-between;
@@ -144,11 +214,16 @@
   }
 
   .navLinks {
+    display: none;
+  }
+
+  .mobileMenu {
+    display: flex;
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
-    left: 0;
+    width: 50%;
     background: var(--primary-color);
     flex-direction: column;
     justify-content: center;
@@ -157,11 +232,17 @@
     z-index: 999;
   }
 
+  .authButton {
+    display: none;
+  }
+
   .mobileMenuButton {
     display: block;
   }
-  
-  .navLink {
-    font-size: 1.25rem;
+}
+
+@include small-mobile {
+  .logo span {
+    display: none;
   }
 }

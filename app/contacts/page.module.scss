@@ -1,3 +1,5 @@
+@use "../mixins.scss" as *;
+
 .main {
   min-height: 100vh;
   background: var(--bg-color);
@@ -278,7 +280,7 @@
   }
 }
 
-@media (max-width: 968px) {
+@include tablet {
   .infoGrid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -288,7 +290,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@include mobile {
   .heroContent h1 {
     font-size: 2.5rem;
   }
@@ -301,5 +303,14 @@
   .contactInfo {
     margin-top: -3rem;
     padding-top: 5rem;
+  }
+}
+
+@include small-mobile {
+  .heroContent h1 {
+    font-size: 2rem;
+  }
+  .heroContent p {
+    font-size: 1.1rem;
   }
 }

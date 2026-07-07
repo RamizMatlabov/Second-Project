@@ -489,7 +489,7 @@
   margin-bottom: 1.25rem;
 }
 
-@media (max-width: 960px) {
+@include tablet {
   .cardProduct {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -503,7 +503,7 @@
   }
 }
 
-@media (max-width: 640px) {
+@include mobile {
   .cardProduct {
     padding: 2rem 1.5rem;
   }
@@ -525,15 +525,19 @@
   .formGrid {
     grid-template-columns: minmax(0, 1fr);
   }
-}
 
-@media (max-width: 768px) {
   .heroContent h1 {
     font-size: 2.4rem;
   }
 
   .heroContent p {
     font-size: 1.1rem;
+  }
+}
+
+@include small-mobile {
+  .container {
+    padding: 0 1rem;
   }
 }
 

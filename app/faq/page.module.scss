@@ -245,12 +245,6 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: var(--shadow-lg);
 
-    @media (max-width: 768px) {
-      flex-direction: column;
-      text-align: center;
-      padding: 3rem 2rem;
-    }
-
     .ctaIcon {
       font-size: 4.5rem;
       color: var(--accent-color);
@@ -283,5 +277,37 @@
       @include hover-scale;
       @include hover-glow;
     }
+  }
+}
+
+@include tablet {
+  .mainContent {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .sidebar {
+    flex-direction: row;
+    flex-wrap: wrap;
+    position: static;
+  }
+}
+
+@include mobile {
+  .container {
+    padding: 4rem 1rem;
+  }
+  .header h1 {
+    font-size: 2rem;
+  }
+  .supportCta .ctaCard {
+    flex-direction: column;
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+}
+
+@include small-mobile {
+  .question {
+    font-size: 1rem;
   }
 }

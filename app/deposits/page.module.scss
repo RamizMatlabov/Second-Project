@@ -327,12 +327,32 @@
   margin-bottom: 1.25rem;
 }
 
-@media (max-width: 768px) {
+@include tablet {
+  .container {
+    padding: 0 1.5rem;
+  }
+}
+
+@include mobile {
   .heroContent h1 {
     font-size: 2.4rem;
   }
 
   .heroContent p {
     font-size: 1.1rem;
+  }
+
+  .infoGrid,
+  .cardsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@include small-mobile {
+  .heroContent h1 {
+    font-size: 2rem;
+  }
+  .depositCard {
+    padding: 2rem;
   }
 }

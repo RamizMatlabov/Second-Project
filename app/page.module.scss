@@ -350,10 +350,11 @@
   }
 }
 
-@media (max-width: 968px) {
+@include tablet {
   .container {
     grid-template-columns: 1fr;
     text-align: center;
+    padding: 0 1.5rem;
   }
 
   .heroContent {
@@ -362,31 +363,98 @@
     h1 {
       font-size: 3.5rem;
     }
+
+    p {
+      font-size: 1.1rem;
+    }
   }
 
   .heroButtons {
     justify-content: center;
+    flex-wrap: wrap;
   }
 
   .heroVisual {
-    display: none; /* Hide complex visual on mobile/tablet for simplicity or adjust */
+    display: none;
   }
 
   .featureGrid {
     grid-template-columns: repeat(2, 1fr);
+    padding: 0 1.5rem;
+  }
+
+  .ctaContent {
+    padding: 0 1.5rem;
   }
 }
 
-@media (max-width: 768px) {
+@include mobile {
   .heroContent h1 {
     font-size: 2.5rem;
+
+    span::after {
+      bottom: 4px;
+      height: 8px;
+    }
+  }
+
+  .heroContent p {
+    font-size: 1rem;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    padding: 0.875rem 2rem;
+    font-size: 1rem;
+  }
+
+  .features {
+    padding: 5rem 0;
+  }
+
+  .featuresHeader {
+    margin-bottom: 3rem;
+    padding: 0 1.5rem;
+
+    h2 {
+      font-size: 2rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
   }
   
   .featureGrid {
     grid-template-columns: 1fr;
   }
   
+  .cta {
+    padding: 5rem 0;
+  }
+
   .ctaContent h2 {
     font-size: 2rem;
+  }
+
+  .ctaContent p {
+    font-size: 1rem;
+  }
+
+  .ctaButton {
+    padding: 0.875rem 2.5rem;
+    font-size: 1rem;
+  }
+}
+
+@include small-mobile {
+  .heroContent h1 {
+    font-size: 2rem;
+  }
+
+  .container,
+  .featureGrid,
+  .ctaContent {
+    padding: 0 1rem;
   }
 }

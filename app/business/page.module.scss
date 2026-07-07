@@ -340,6 +340,52 @@
   }
 }
 
+@include tablet {
+  .heroContent h1 {
+    font-size: 2.5rem;
+  }
+
+  .statsGrid,
+  .featuresGrid,
+  .plansGrid {
+    padding: 0 1.5rem;
+  }
+
+  .planCard.recommended {
+    transform: scale(1);
+  }
+
+  .ctaContent {
+    padding: 3rem 2rem;
+  }
+}
+
+@include mobile {
+  .heroActions {
+    flex-direction: column;
+  }
+
+  .heroContent h1 {
+    font-size: 2rem;
+  }
+
+  .heroContent p {
+    font-size: 1.1rem;
+  }
+
+  .ctaButton,
+  .secondaryButton {
+    padding: 0.9rem 1.8rem;
+    font-size: 1rem;
+  }
+}
+
+@include small-mobile {
+  .container {
+    padding: 0 1rem;
+  }
+}
+
 .cta {
   padding: 8rem 2rem;
   

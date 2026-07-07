@@ -340,6 +340,49 @@
   @include hover-scale;
 }
 
+@include tablet {
+  .container {
+    padding: 4rem 1.5rem;
+  }
+  .searchSection {
+    flex-direction: column;
+  }
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+@include mobile {
+  .container {
+    padding: 4rem 1rem;
+  }
+  .filtersWrapper {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .viewToggle {
+    width: 100%;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@include small-mobile {
+  .cardHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .cardFooter {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .routeBtn {
+    width: 100%;
+  }
+}
+
 .mapPlaceholder {
   width: 100%;
   height: 600px;

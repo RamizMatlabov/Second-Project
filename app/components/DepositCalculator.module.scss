@@ -131,4 +131,31 @@
   }
 }
 
+@include tablet {
+  .calculatorContainer .title {
+    font-size: 1.5rem;
+  }
+}
+
+@include mobile {
+  .calculatorContainer .title {
+    font-size: 1.3rem;
+  }
+
+  .calculatorContainer .results .resultItem {
+    font-size: 1rem;
+  }
+
+  .applyButton {
+    font-size: 1rem;
+    padding: 0.8rem 1.2rem;
+  }
+}
+
+@include small-mobile {
+  .calculatorContainer .inputGroup .textInput {
+    padding: 0.6rem 0.8rem;
+  }
+}
+
 

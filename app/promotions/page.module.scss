@@ -268,13 +268,42 @@
   @include hover-glow;
 }
 
-@media (max-width: 768px) {
+@include tablet {
+  .container {
+    padding: 0 1.5rem;
+  }
+  .ctaInner {
+    flex-direction: column;
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+}
+
+@include mobile {
   .heroContent h1 {
     font-size: 2.4rem;
   }
 
   .heroContent p {
     font-size: 1.1rem;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .notice {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}
+
+@include small-mobile {
+  .heroContent h1 {
+    font-size: 2rem;
+  }
+  .promoCard {
+    padding: 2rem 1.5rem;
   }
 }
 

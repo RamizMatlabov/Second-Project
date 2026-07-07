@@ -446,3 +446,42 @@
     background: var(--accent-hover);
   }
 }
+
+@include tablet {
+  .formWrapper {
+    padding: 2rem;
+  }
+
+  .progressHeader {
+    margin-bottom: 3rem;
+  }
+}
+
+@include mobile {
+  .container {
+    padding: 80px 1rem 2rem;
+  }
+
+  .formWrapper {
+    padding: 1.5rem;
+  }
+
+  .progressHeader {
+    flex-direction: column;
+    gap: 1rem;
+    &::after { display: none; }
+  }
+
+  .formFooter {
+    flex-direction: column-reverse;
+    gap: 1rem;
+    button { width: 100%; }
+  }
+}
+
+@include small-mobile {
+  .planOption {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}

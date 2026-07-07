@@ -48,23 +48,48 @@ export default function Navigation() {
         </Link>
 
         <AnimatePresence>
-          {(isMobileMenuOpen || !isMobileMenuOpen) && (
+          <motion.div 
+            className={styles.navLinks}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+          >
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`${styles.navLink} ${pathname === link.href ? styles.active : ''}`}
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </motion.div>
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {isMobileMenuOpen && (
             <motion.div 
-              className={styles.navLinks}
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
+              className={styles.mobileMenu}
+              initial={{ opacity: 0, x: '100%' }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: '100%' }}
               transition={{ duration: 0.3 }}
             >
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`${styles.navLink} ${pathname === link.href ? styles.active : ''}`}
+                  className={`${styles.mobileNavLink} ${pathname === link.href ? styles.active : ''}`}
+                  onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {link.label}
                 </Link>
               ))}
+              <Link href={user ? '/profile' : '/auth'} className={styles.mobileAuthButton} onClick={() => setIsMobileMenuOpen(false)}>
+                {user ? 'Мой профиль' : 'Войти'}
+              </Link>
             </motion.div>
           )}
         </AnimatePresence>
@@ -75,7 +100,7 @@ export default function Navigation() {
           </Link>
 
           <button 
-            className={styles.mobileMenuButton}
+            className={`${styles.mobileMenuButton} ${isMobileMenuOpen ? styles.open : ''}`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             <span className={styles.menuIcon}></span>

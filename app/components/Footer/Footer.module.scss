@@ -93,7 +93,7 @@
   }
 }
 
-@media (max-width: 968px) {
+@include tablet {
   .content {
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
@@ -104,7 +104,7 @@
   }
 }
 
-@media (max-width: 576px) {
+@include mobile {
   .content {
     grid-template-columns: 1fr;
     gap: 2.5rem;
@@ -112,5 +112,11 @@
   
   .footer {
     padding: 3rem 0 1.5rem;
+  }
+}
+
+@include small-mobile {
+  .container {
+    padding: 0 1rem;
   }
 }

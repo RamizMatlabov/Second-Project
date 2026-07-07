@@ -96,3 +96,35 @@
     transform: scale(1.1) !important;
   }
 }
+
+@include tablet {
+  .calculator .header h3 {
+    font-size: 1.3rem;
+  }
+}
+
+@include mobile {
+  .calculator {
+    gap: 1.5rem;
+    padding: 0.5rem;
+  }
+
+  .calculator .header h3 {
+    font-size: 1.2rem;
+  }
+
+  .calculator .result .resultItem .paymentValue {
+    font-size: 1.5rem;
+  }
+
+  .calculator .applyButton {
+    font-size: 1rem;
+    padding: 0.875rem;
+  }
+}
+
+@include small-mobile {
+  .calculator .result {
+    padding: 1rem;
+  }
+}

@@ -183,3 +183,47 @@
     opacity: 1;
   }
 }
+
+@include tablet {
+  .modal {
+    padding: 30px;
+  }
+
+  .formContent h2,
+  .successContent h2 {
+    font-size: 24px;
+  }
+}
+
+@include mobile {
+  .modal {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .formContent h2,
+  .successContent h2 {
+    font-size: 22px;
+  }
+
+  .formContent p,
+  .successContent p {
+    font-size: 14px;
+  }
+
+  .successContent .successIcon {
+    font-size: 60px;
+  }
+}
+
+@include small-mobile {
+  .modal {
+    padding: 15px;
+  }
+
+  .formGroup input,
+  .formGroup textarea {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+}
