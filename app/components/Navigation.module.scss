@@ -224,9 +224,10 @@
     display: flex;
     position: fixed;
     top: 0;
+    left: 0;
     right: 0;
     bottom: 0;
-    width: 50%;
+    width: 100%;
     background: var(--primary-color);
     flex-direction: column;
     justify-content: center;
